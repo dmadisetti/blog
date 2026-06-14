@@ -1,0 +1,49 @@
+/* Vim Navigation - Block Highlighting */
+
+.vim-cursor-active {
+  position: relative;
+  transition: all 0.15s ease-out;
+  /* Terminal-cursor feel: a neutral "lighten" of the block (no colored glow,
+     no drop shadow). Foreground-tinted so it reads in both light and dark. */
+  border-left: 3px solid var(--md-default-fg-color--lighter);
+  padding-left: 1rem;
+  border-radius: 3px;
+  background-color: color-mix(in srgb, var(--md-default-fg-color) 10%, transparent);
+}
+
+/* The per-character cursor (terminal block) on element-level pages. */
+.vim-char-cursor {
+  position: absolute;
+  background-color: color-mix(in srgb, var(--md-default-fg-color) 65%, transparent);
+  mix-blend-mode: var(--vim-cursor-blend, difference);
+  pointer-events: none;
+  z-index: 9998;
+  border-radius: 1px;
+  transition: top 0.08s ease-out, left 0.08s ease-out;
+}
+
+/* Prevent layout shift when class is applied */
+.md-content__inner p,
+.md-content__inner h1,
+.md-content__inner h2,
+.md-content__inner h3,
+.md-content__inner h4,
+.md-content__inner h5,
+.md-content__inner h6,
+.md-content__inner pre,
+.md-content__inner blockquote,
+.md-content__inner li {
+  scroll-margin-top: 25vh;
+  scroll-margin-bottom: 25vh;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure WebGL canvas doesn't interfere with text selection */
+canvas {
+  user-select: none;
+  -webkit-user-select: none;
+}

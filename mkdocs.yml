@@ -1,0 +1,131 @@
+site_name: Dylan's Notes
+site_description: General notes and musings of Dylan Madisetti
+site_author: Dylan Madisetti
+site_url: https://dmadisetti.github.io/blog/
+
+# Repository
+repo_name: dmadisetti/blog
+repo_url: https://github.com/dmadisetti/blog
+
+# Theme configuration
+theme:
+  name: material
+  custom_dir: overrides
+  # Mono-forward aesthetic: Fira Code for body + code. Material auto-loads it
+  # from Google Fonts and exposes it as --md-text-font / --md-code-font, which
+  # the marimo islands inherit (see stylesheets/marimo-islands.css).
+  font:
+    text: Fira Code
+    code: Fira Code
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.instant        # Instant loading
+    - navigation.tracking       # URL updates
+    - navigation.tabs          # Top-level tabs
+    - navigation.top           # Back to top button
+    - search.suggest           # Search suggestions
+    - search.highlight         # Highlight search results
+    - content.code.copy        # Code copy button
+    - content.code.annotate    # Code annotations
+
+# Plugins
+plugins:
+  - search
+  - blog:
+      # Blog is the site root: docs/index.md is the blog index (prelude +
+      # post list), posts live in docs/posts.
+      blog_dir: .
+      blog_toc: true
+      post_dir: posts
+      post_date_format: medium
+      post_url_format: "{slug}"
+      authors: false
+      pagination_per_page: 10
+      archive: true
+      archive_name: Archive
+      archive_date_format: yyyy
+      # Categories consolidated into tags — single taxonomy.
+      categories: false
+  - tags:
+      tags_file: tags.md
+
+# marimo cells are rendered as reactive islands by a local hook
+# (hooks/marimo_islands.py) backed by `marimo export islands-json`, replacing
+# the mkdocs-marimo plugin.
+hooks:
+  - hooks/marimo_islands.py
+
+# Markdown extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: marimo
+          class: marimo
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - footnotes
+  - toc:
+      permalink: true
+
+# Extra JavaScript
+extra_javascript:
+  # NOTE: polyfill.io was removed — the domain was sold and now serves
+  # malware/redirects (2024 supply-chain compromise). Modern browsers don't
+  # need the es6 polyfill for MathJax anyway.
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/vim-navigation.js
+  - javascripts/marimo-theme.js
+
+# Extra CSS
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/marimo-islands.css
+  - stylesheets/site.css
+  - stylesheets/paper-dark.css
+
+# Extra
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/dmadisetti
+  generator: false
+
+# Navigation
+nav:
+  # Blog as a section so the plugin nests Archive under it in the sidebar
+  # (rather than as a top-level tab). index.md is the blog landing.
+  - Blog:
+      - index.md
+  - Tags: tags.md

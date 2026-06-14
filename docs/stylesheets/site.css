@@ -1,0 +1,66 @@
+/* Load Fira Sans for headings — the proportional sibling of Fira Code (both
+   from the Fira superfamily), so headings pair cleanly with the mono body. */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap");
+
+/* Site chrome tweaks: compact header, Fira Sans headings, blog-index spacing. */
+
+/* --- Compact header by default ------------------------------------------- */
+/* Material's header + tab row are tall; tighten both so the top bar is lean. */
+.md-header {
+  box-shadow: none;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-header__inner {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+.md-header__title {
+  font-size: 0.78rem;
+}
+.md-tabs__list {
+  margin: 0;
+}
+.md-tabs__link {
+  font-size: 0.66rem;
+  margin-top: 0.45rem;
+  margin-bottom: 0.45rem;
+  opacity: 0.85;
+}
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  opacity: 1;
+}
+
+/* --- Headings: Fira Sans (proportional) against the Fira Code mono body --- */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  font-family: "Fira Sans", var(--md-text-font), sans-serif;
+}
+.md-typeset h1 {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-size: 1.9rem;
+  line-height: 1.15;
+}
+.md-typeset h2 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-size: 1.35rem;
+  margin-top: 2em;
+}
+.md-typeset h3 {
+  font-weight: 600;
+  font-size: 1.08rem;
+}
+
+/* --- Blog index: breathing room between the prelude and the post list ----- */
+.md-post--excerpt {
+  margin-bottom: 2.5rem;
+}
+.md-post--excerpt:first-of-type {
+  margin-top: 3.5rem;
+}

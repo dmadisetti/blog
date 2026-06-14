@@ -1,0 +1,147 @@
+/* marimo islands ↔ Material integration.
+ *
+ * The islands runtime ships its own font stack (Lora / PT Sans / Fira Mono)
+ * and color tokens that ignore Material's theme. This makes the islands inherit
+ * Material's fonts and follow the light/dark palette toggle, and resets the
+ * per-cell chrome so cells flow in the article body. Adapted from marimo-book's
+ * extra.css "WASM (marimo islands) integration" block, plus dark/light sync
+ * (which marimo-book does not do).
+ */
+
+/* --- Typography: inherit the site font (Fira Code, set in mkdocs.yml) ------ */
+.marimo,
+marimo-island,
+marimo-cell-output {
+  font-family: var(--md-text-font, "Fira Code"), ui-monospace, monospace;
+  /* Match Material's body type size (.md-typeset is 0.8rem) — marimo's own
+     default runs larger and looked oversized next to the prose. */
+  font-size: 0.8rem;
+  /* Override marimo's own font variables at the source so nested components
+     (tables, code editors, widgets) pick up the site font too. */
+  --marimo-text-font: var(--md-text-font, "Fira Code"), ui-monospace, monospace;
+  --marimo-heading-font: "Fira Sans", var(--md-text-font), sans-serif;
+  --marimo-monospace-font: var(--md-code-font, "Fira Code"), ui-monospace, monospace;
+
+  /* Remap marimo's color tokens onto Material's, so outputs (especially the
+     <marimo-table> web component) match the page in BOTH schemes. Custom
+     properties inherit into the components, and Material's --md-* tokens
+     already flip per data-md-color-scheme, so these track the theme for free
+     — no separate light/dark rules needed. */
+  --background: var(--md-default-bg-color);
+  --foreground: var(--md-default-fg-color);
+  --card: var(--md-default-bg-color);
+  --card-foreground: var(--md-default-fg-color);
+  --popover: var(--md-default-bg-color);
+  --popover-foreground: var(--md-default-fg-color);
+  --muted: var(--md-default-fg-color--lightest);
+  --muted-foreground: var(--md-default-fg-color--light);
+  --border: var(--md-default-fg-color--lightest);
+  --input: var(--md-default-fg-color--lighter);
+  --secondary: var(--md-default-fg-color--lightest);
+  --secondary-foreground: var(--md-default-fg-color);
+}
+
+/* Belt-and-suspenders for any plain table marimo renders into an output, plus
+   the <marimo-table> web component. Numbers/cells render large by default —
+   pull them down to chrome size. */
+marimo-table,
+marimo-cell-output table {
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.72rem;
+}
+marimo-cell-output th,
+marimo-cell-output td {
+  border-color: var(--md-default-fg-color--lightest);
+}
+
+/* marimo renders markdown through Tailwind's .prose, which sets its OWN
+   (larger) font-size and overrode the 0.8rem above. Pull it back to inherit so
+   island prose matches the body type. */
+marimo-cell-output .prose,
+marimo-cell-output .markdown,
+.marimo .prose,
+.marimo .markdown {
+  font-size: inherit;
+}
+
+/* marimo output headings should match the site's Fira Sans headings, not the
+   mono body font. */
+marimo-cell-output :is(h1, h2, h3, h4, h5, h6),
+.marimo :is(h1, h2, h3, h4, h5, h6) {
+  font-family: "Fira Sans", var(--md-text-font), sans-serif;
+}
+
+/* marimo UI controls (slider / dropdown / text-input labels) are chrome, not
+   body copy — render them in Fira Sans and a touch smaller. Overriding
+   --marimo-text-font in this scope reaches the labels inside the components. */
+marimo-ui-element {
+  --marimo-text-font: "Fira Sans", sans-serif;
+  font-family: "Fira Sans", var(--md-text-font), sans-serif;
+  font-size: 0.72rem;
+}
+
+/* In dark mode marimo's prose headings/strong render dim (its dark variant
+   isn't reliably applied on islands), so they read low-contrast on #333.
+   Force them to full foreground. */
+[data-md-color-scheme="slate"] marimo-cell-output :is(h1, h2, h3, h4, h5, h6),
+[data-md-color-scheme="slate"] marimo-cell-output strong,
+[data-md-color-scheme="slate"] marimo-cell-output b,
+[data-md-color-scheme="slate"] .marimo :is(h1, h2, h3, h4, h5, h6),
+[data-md-color-scheme="slate"] .marimo strong,
+[data-md-color-scheme="slate"] .marimo b {
+  color: var(--md-default-fg-color) !important;
+}
+.marimo code,
+.marimo pre,
+marimo-cell-output code,
+marimo-cell-output pre {
+  font-family: var(--md-code-font, "Fira Code"), ui-monospace, monospace;
+}
+
+/* --- Layout: per-cell wrappers shouldn't add their own margins/borders ----- */
+marimo-island {
+  display: block;
+  margin: 0.9rem 0;
+}
+marimo-cell-output {
+  display: block;
+}
+/* Outputs (plots, tables, images) shouldn't overflow the content column. */
+marimo-cell-output img,
+marimo-cell-output svg,
+marimo-cell-output canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Dark / light: follow Material's palette toggle ----------------------- */
+/* marimo's color tokens use CSS `light-dark()`, which resolves against the
+   `color-scheme` property. Material sets `data-md-color-scheme` but not
+   `color-scheme` on the island subtree, so pin it per scheme. The JS in
+   marimo-theme.js additionally mirrors this onto `body[data-theme]` so the
+   islands runtime (editors/widgets) themes correctly on hydration. */
+[data-md-color-scheme="default"] .marimo,
+[data-md-color-scheme="default"] marimo-island,
+[data-md-color-scheme="default"] marimo-cell-output {
+  color-scheme: light;
+}
+[data-md-color-scheme="slate"] .marimo,
+[data-md-color-scheme="slate"] marimo-island,
+[data-md-color-scheme="slate"] marimo-cell-output {
+  color-scheme: dark;
+}
+
+/* --- Hide the "Initializing…" spinner cell -------------------------------- */
+/* Cells render server-side placeholder output already, so the boot spinner is
+   noise. (We also pass include_init_island implicitly off by rendering stubs
+   directly, but guard against any spinner the runtime injects.) */
+marimo-island marimo-cell-output svg.animate-spin {
+  display: none;
+}
+
+/* The islands runtime markup injected into the page <head> by the hook can
+   leave an empty <marimo-filename> element in the body flow; keep it hidden. */
+marimo-filename {
+  display: none;
+}

@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# MkDocs
+site/
+.cache/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build outputs
+docs/javascripts/vim-navigation.js
+docs/javascripts/vim-navigation.js.map
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Nix
+result
+result-*
+
+# Misc
+.env
+*.log
+.claude/
+
+# Private publishing queue — drafts, scheduled posts, and ideas.
+# Intimate / unpublished work. NEVER committed to the public repo;
+# posts only move into docs/blog/posts/ when they go live.
+_queue/
+
+# Old working backups + archive (contains personal journals + half-baked drafts).
+# Local-only; pull keepers into _queue/ when triaged, don't publish wholesale.
+backup/

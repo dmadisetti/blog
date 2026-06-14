@@ -1,0 +1,24 @@
+{
+  "name": "blog-vim-navigation",
+  "version": "1.0.0",
+  "description": "Vim-style navigation component for Dylan's blog",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@rollup/plugin-babel": "~6.0.4",
+    "@rollup/plugin-commonjs": "~28.0.2",
+    "@rollup/plugin-node-resolve": "~15.3.0",
+    "@rollup/plugin-replace": "~6.0.2",
+    "@rollup/plugin-terser": "~0.4.4",
+    "@babel/core": "~7.28.5",
+    "@babel/preset-react": "~7.28.5",
+    "rollup": "~4.30.1"
+  },
+  "dependencies": {
+    "react": "~18.3.1",
+    "react-dom": "~18.3.1"
+  }
+}

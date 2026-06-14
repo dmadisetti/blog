@@ -1,0 +1,103 @@
+/* PaperColor theme — light + dark.
+ *
+ * Replaces Material's default light scheme and bluish "slate" dark scheme with
+ * the PaperColor palettes: a soft #eeeeee paper light and a warm #333 dark,
+ * each with PaperColor's accent set (blue links, pink/magenta headings,
+ * green/cyan/amber code). The header is given a matching surface per scheme
+ * (a touch darker than the body) instead of Material's accent-colored bar.
+ */
+
+/* ===================== PaperColor LIGHT (#eeeeee) ========================= */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #eeeeee;
+  --md-default-bg-color--light: #e6e6e6;
+  --md-default-bg-color--lighter: #dddddd;
+  --md-default-bg-color--lightest: #d0d0d0;
+
+  --md-default-fg-color: #444444;
+  --md-default-fg-color--light: #5c5c5c;
+  --md-default-fg-color--lighter: #8a8a8a;
+  --md-default-fg-color--lightest: #cfcfcf; /* hairline borders */
+
+  --md-primary-fg-color: #4e93aa; /* muted, lighter PaperColor blue */
+  --md-primary-fg-color--light: #6fa9bd;
+  --md-primary-fg-color--dark: #3a7d92;
+  --md-primary-bg-color: #eeeeee;
+  --md-accent-fg-color: #4e93aa;
+  --md-accent-fg-color--transparent: rgba(78, 147, 170, 0.12);
+  --md-typeset-color: #444444;
+  --md-typeset-a-color: #4e93aa;
+
+  --md-code-bg-color: #e4e4e4;
+  --md-code-fg-color: #444444;
+  --md-code-hl-color: rgba(0, 135, 175, 0.15);
+  --md-code-hl-keyword-color: #d70087; /* pink */
+  --md-code-hl-string-color: #5f8700; /* green */
+  --md-code-hl-function-color: #0087af; /* blue */
+  --md-code-hl-number-color: #d75f00; /* orange */
+  --md-code-hl-constant-color: #d75f00;
+  --md-code-hl-special-color: #d70000; /* red */
+  --md-code-hl-operator-color: #0087af;
+  --md-code-hl-punctuation-color: #5c5c5c;
+  --md-code-hl-name-color: #444444;
+  --md-code-hl-variable-color: #444444;
+  --md-code-hl-comment-color: #878787;
+}
+[data-md-color-scheme="default"] .md-typeset h1 {
+  color: #c47a9c; /* soft, muted pastel rose — not neon, not dark */
+}
+
+/* ===================== PaperColor DARK (#333) ============================= */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #333333;
+  --md-default-bg-color--light: #3a3a3a;
+  --md-default-bg-color--lighter: #424242;
+  --md-default-bg-color--lightest: #4a4a4a;
+
+  --md-default-fg-color: #d0d0d0;
+  --md-default-fg-color--light: #b2b2b2;
+  --md-default-fg-color--lighter: #8a8a8a;
+  --md-default-fg-color--lightest: #4e4e4e; /* hairline borders */
+
+  --md-primary-fg-color: #5fafff; /* PaperColor dark blue */
+  --md-primary-fg-color--light: #87cfff;
+  --md-primary-fg-color--dark: #3a8fe0;
+  --md-primary-bg-color: #333333;
+  --md-accent-fg-color: #5fafff;
+  --md-accent-fg-color--transparent: rgba(95, 175, 255, 0.1);
+  --md-typeset-color: #d0d0d0;
+  --md-typeset-a-color: #5fafff;
+
+  --md-code-bg-color: #2b2b2b;
+  --md-code-fg-color: #d0d0d0;
+  --md-code-hl-color: rgba(95, 175, 255, 0.18);
+  --md-code-hl-keyword-color: #ff5faf; /* magenta */
+  --md-code-hl-string-color: #87d700; /* green */
+  --md-code-hl-function-color: #00afaf; /* cyan */
+  --md-code-hl-number-color: #ffaf00; /* amber */
+  --md-code-hl-constant-color: #ffaf00;
+  --md-code-hl-special-color: #ff5f87; /* red */
+  --md-code-hl-operator-color: #5fafff;
+  --md-code-hl-punctuation-color: #b2b2b2;
+  --md-code-hl-name-color: #d0d0d0;
+  --md-code-hl-variable-color: #d0d0d0;
+  --md-code-hl-comment-color: #808080;
+}
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #ff5faf; /* magenta */
+}
+
+/* ===================== Header: matching surface per scheme ================ */
+/* Material paints the header with the accent (--md-primary-fg-color); that
+   made the bar blue in dark. Give it a neutral surface a touch darker than the
+   body instead, in both schemes. */
+[data-md-color-scheme="default"] .md-header,
+[data-md-color-scheme="default"] .md-tabs {
+  background-color: #e4e4e4;
+  color: #444444;
+}
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color: #2a2a2a;
+  color: #d0d0d0;
+}
