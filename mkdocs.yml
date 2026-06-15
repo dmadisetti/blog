@@ -41,6 +41,7 @@ theme:
     - search.highlight         # Highlight search results
     - content.code.copy        # Code copy button
     - content.code.annotate    # Code annotations
+    - content.tooltips         # Styled hover tooltips ([text][caption] hook)
 
 # Plugins
 plugins:
@@ -81,6 +82,8 @@ hooks:
   # Ships docs/.well-known/ (atproto-did for the Bluesky handle, etc.) into the
   # built site — mkdocs skips dot-dirs otherwise.
   - hooks/well_known.py
+  # Grouped inline tooltips: [visible phrase][caption] -> hover tooltip.
+  - hooks/tooltips.py
 
 # Markdown extensions
 markdown_extensions:
