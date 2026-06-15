@@ -101,6 +101,26 @@
   text-underline-offset: 0.16em;
 }
 
+/* --- Post footer: Substack subscribe + giscus comments ------------------- */
+.post-extras {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+.post-extras .subscribe p {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8rem;
+}
+.subscribe__frame {
+  display: block;
+  max-width: 480px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+}
+.post-extras .comments {
+  margin-top: 2.5rem;
+}
+
 /* --- Blog index: breathing room between the prelude and the post list ----- */
 .md-post--excerpt {
   margin-bottom: 2.5rem;

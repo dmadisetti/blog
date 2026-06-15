@@ -62,12 +62,25 @@ plugins:
       categories: false
   - tags:
       tags_file: tags.md
+  # RSS/Atom feed — the POSSE substrate. Canonical post lives on GH Pages; the
+  # feed is what aggregators (Lobsters, newsletters, readers) and the GH-release
+  # drip hang off. Posts only (match_path), dated from frontmatter.
+  - rss:
+      match_path: "posts/.*"
+      date_from_meta:
+        as_creation: date
+      categories:
+        - tags
+      comments_path: "#__comments"
 
 # marimo cells are rendered as reactive islands by a local hook
 # (hooks/marimo_islands.py) backed by `marimo export islands-json`, replacing
 # the mkdocs-marimo plugin.
 hooks:
   - hooks/marimo_islands.py
+  # Ships docs/.well-known/ (atproto-did for the Bluesky handle, etc.) into the
+  # built site — mkdocs skips dot-dirs otherwise.
+  - hooks/well_known.py
 
 # Markdown extensions
 markdown_extensions:
@@ -118,6 +131,15 @@ extra_css:
 
 # Extra
 extra:
+  # Comments via giscus (GitHub Discussions). Fill repo_id / category_id from
+  # https://giscus.app after creating the repo, enabling Discussions, and
+  # installing the giscus app. Until repo_id is set, comments stay hidden
+  # (the Substack subscribe CTA still renders on posts).
+  giscus:
+    repo: dmadisetti/blog
+    repo_id: "R_kgDOS63aqQ"
+    category: Announcements
+    category_id: "DIC_kwDOS63aqc4C_Kyy"
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/dmadisetti

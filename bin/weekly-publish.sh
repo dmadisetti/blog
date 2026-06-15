@@ -9,7 +9,7 @@ set -euo pipefail
 
 BLOG="${BLOG_DIR:-/home/dylan/blog}"
 QUEUE="$BLOG/_queue/scheduled"
-POSTS="$BLOG/docs/blog/posts"
+POSTS="$BLOG/docs/posts"
 DRY="${DRY_RUN:-0}"
 log(){ printf '[blog-publish %s] %s\n' "$(date -Is)" "$*"; }
 cd "$BLOG"
@@ -27,15 +27,32 @@ for f in "$POSTS"/*.md; do
   fi
 done
 
-# 2) Next ready post = LOWEST ordinal in the queue. Files are NN_name.md where NN is a
-#    (possibly negative, possibly unpadded) integer — so -1_jump-the-queue.md ships before
-#    00_name.md. We sort numerically on that prefix; the date is stamped at publish time
-#    (rename NN_name.md -> YYYY-MM-DD-name.md).
+# 2) Next ready post = LOWEST ordinal in the queue. Ordinal prefix format:
+#       [_]INT[_DEC]_name.md
+#    INT          integer part (e.g. 00_rowdybot.md -> 0).
+#    leading '_'  NEGATIVE ordinal (_01_x.md -> -1), so it ships before 0. We use
+#                 '_' not '-' because '-'-prefixed filenames act like CLI flags.
+#    _DEC         optional fractional sub-ordinal, read as digits AFTER a decimal
+#                 point — so _2 (.2) sorts AFTER _1999 (.1999). Lets you wedge a
+#                 post between 1 and 2 (1_5 -> 1.5), then between those (1_55), ...
+#    Everything after the ordinal is the name; the date is stamped at publish time
+#    (NN_name.md -> YYYY-MM-DD-name.md). Sort is numeric, so decimals compare right.
 next="$(
   for f in "$QUEUE"/*_*.md; do
     [ -e "$f" ] || continue
-    b="$(basename "$f")"; n="${b%%_*}"
-    case "$n" in -[0-9]* | [0-9]*) printf '%s\t%s\n' "$n" "$f" ;; esac
+    b="$(basename "$f")"
+    core="$b"; sign=""
+    case "$core" in _*) sign="-"; core="${core#_}" ;; esac   # leading '_' => negative
+    int="${core%%_*}"; after="${core#*_}"
+    case "$int" in ''|*[!0-9]*) continue ;; esac             # integer part must be digits
+    # A numeric token immediately after INT (with a name still following it) is the
+    # decimal part; otherwise it's the start of the name.
+    dec=""
+    case "$after" in *_*)
+      t1="${after%%_*}"; case "$t1" in ''|*[!0-9]*) ;; *) dec="$t1" ;; esac ;;
+    esac
+    if [ -n "$dec" ]; then key="${sign}${int}.${dec}"; else key="${sign}${int}"; fi
+    printf '%s\t%s\n' "$key" "$f"
   done | sort -k1,1n | head -n1 | cut -f2-
 )"
 if [ -z "${next:-}" ]; then
@@ -43,7 +60,8 @@ if [ -z "${next:-}" ]; then
   exit 0
 fi
 
-slug="$(basename "$next" | sed -E 's/^-?[0-9]+_//')"   # strip the (maybe negative) ordinal
+# Strip the ordinal prefix: optional '_' (negative), INT, optional '_DEC', then '_'.
+slug="$(basename "$next" | sed -E 's/^_?[0-9]+(_[0-9]+)?_//')"
 today="$(date +%F)"
 dest="$POSTS/${today}-${slug}"
 
@@ -69,4 +87,23 @@ if git remote get-url origin >/dev/null 2>&1; then
   fi
 else
   log "no 'origin' remote yet — committed locally only (safe; nothing went public)."
+fi
+
+# 5) Optional announce. OFF by default — the weekly drip is silent (publish +
+#    push only) unless ANNOUNCE=1 (set in the systemd unit). Best-effort: a
+#    syndication failure never fails the publish, since the post is already live.
+if [ "${ANNOUNCE:-0}" = "1" ]; then
+  base="${SITE_BASE:-https://dmadisetti.github.io/blog}"
+  url="${base%/}/${slug%.md}/"
+  title="$(sed -nE 's/^title:[[:space:]]*(.+)$/\1/p' "$dest" | head -n1)"
+  [ -n "$title" ] || title="${slug%.md}"
+  if command -v uv >/dev/null 2>&1; then
+    if (cd "$BLOG" && uv run --group publish python bin/syndicate.py both "New post: ${title}" --link "$url"); then
+      log "announced to bluesky + mathstodon ($url)"
+    else
+      log "announce failed (post is still live) — syndicate manually if needed."
+    fi
+  else
+    log "ANNOUNCE=1 but 'uv' not on PATH — skipped (the systemd unit provides it)."
+  fi
 fi

@@ -7,11 +7,12 @@ requires-python = ">=3.14"
 dependencies = [
     "cairosvg>=2.8.2",
     "duckdb>=1.4.3",
-    "marimo>=0.18.4",
+    "marimo>=0.23.9",
     "matplotlib>=3.10.8",
     "mkdocs>=1.6.1",
     "mkdocs-blog-plugin>=0.25",
     "mkdocs-material>=9.7.1",
+    "mkdocs-rss-plugin>=1.17.1",
     "numpy>=2.4.1",
     "pandas>=2.3.3",
     "pillow>=12.0.0",
@@ -19,10 +20,10 @@ dependencies = [
     "python-markdown-math>=0.9",
 ]
 
-# marimo cells are rendered via `marimo export islands-json` (hooks/marimo_islands.py),
-# which requires the islands-json subcommand. Until that change is released
-# upstream, pin marimo to a local editable checkout that has it. Repoint `path`
-# at your own marimo dev checkout / PR branch as needed; remove this block once
-# islands-json ships in a published marimo release.
-[tool.uv.sources]
-marimo = { path = "../src/islands-work/marimo", editable = true }
+# Publish-time only (the syndication poster, bin/syndicate.py). Kept out of the
+# default deps so the site build / CI stays lean: `uv sync --group publish`.
+[dependency-groups]
+publish = [
+    "atproto>=0.0.55",
+    "mastodon-py>=1.8.1",
+]

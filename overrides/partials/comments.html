@@ -1,0 +1,61 @@
+{#- Blog posts only: a Substack subscribe CTA + giscus comments.
+
+  Substack works immediately. Giscus renders ONLY once extra.giscus.repo_id is
+  set (from https://giscus.app, after creating the GitHub repo, enabling
+  Discussions, and installing the giscus app) — so until then the comments box
+  stays hidden rather than showing a broken widget. -#}
+{% if page.meta and page.meta.date %}
+<div class="post-extras">
+
+  <section class="subscribe">
+    <h2>subscribe</h2>
+    <p>Liked this? Get the next one in your inbox — a short note that links back
+      to the live, runnable post.</p>
+    <iframe class="subscribe__frame"
+            src="https://dmadisetti.substack.com/embed"
+            width="100%" height="150" frameborder="0" scrolling="no"
+            title="Subscribe to dmadisetti on Substack"></iframe>
+  </section>
+
+  {% if config.extra.giscus and config.extra.giscus.repo_id %}
+  <section class="comments">
+    <h2 id="__comments">comments</h2>
+    <script src="https://giscus.app/client.js"
+            data-repo="{{ config.extra.giscus.repo }}"
+            data-repo-id="{{ config.extra.giscus.repo_id }}"
+            data-category="{{ config.extra.giscus.category }}"
+            data-category-id="{{ config.extra.giscus.category_id }}"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <script>
+      // Sync giscus theme to Material's light/dark toggle.
+      (function () {
+        function theme() {
+          return document.body.getAttribute("data-md-color-scheme") === "slate"
+            ? "dark" : "light";
+        }
+        function sync() {
+          var f = document.querySelector("iframe.giscus-frame");
+          if (f) f.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: theme() } } }, "https://giscus.app");
+        }
+        new MutationObserver(sync).observe(document.body,
+          { attributes: true, attributeFilter: ["data-md-color-scheme"] });
+        window.addEventListener("message", function (e) {
+          if (e.origin === "https://giscus.app" && e.data && e.data.giscus) sync();
+        });
+      })();
+    </script>
+  </section>
+  {% endif %}
+
+</div>
+{% endif %}
