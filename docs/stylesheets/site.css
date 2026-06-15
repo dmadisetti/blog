@@ -117,7 +117,16 @@
   border: 1px solid var(--md-default-fg-color--lightest);
   border-radius: 4px;
 }
-.post-extras .comments {
+/* Substack's embed is a hard white card that ignores dark mode. It's a
+   cross-origin iframe (can't theme its insides), so we filter the element to
+   read dark-native. A *partial* invert (0.85) lands it on a soft dark gray near
+   the page bg instead of stark #000, and the contrast cut mutes the flipped
+   colors; hue-rotate keeps the brand button roughly on-hue. Tune invert toward
+   1.0 for darker / 0.8 for lighter. */
+[data-md-color-scheme="slate"] .subscribe__frame {
+  filter: invert(0.85) hue-rotate(180deg) contrast(0.9) brightness(0.95);
+}
+.post-extras section + section {
   margin-top: 2.5rem;
 }
 

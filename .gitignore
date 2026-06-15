@@ -24,6 +24,9 @@ yarn.lock
 docs/javascripts/vim-navigation.js
 docs/javascripts/vim-navigation.js.map
 
+# Transient queue-preview mirrors (hooks/queue_preview.py) — never committed.
+docs/posts/queued.*.md
+
 # IDEs
 .vscode/
 .idea/

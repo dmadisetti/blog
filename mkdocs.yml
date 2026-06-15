@@ -84,6 +84,12 @@ hooks:
   - hooks/well_known.py
   # Grouped inline tooltips: [visible phrase][caption] -> hover tooltip.
   - hooks/tooltips.py
+  # Mirror _queue/scheduled drafts into docs/posts for local preview (build/serve
+  # only, never gh-deploy) so we don't hand-sync. Watches the queue for reload.
+  - hooks/queue_preview.py
+  # Auto-insert <!-- more --> after the first paragraph so every post gets a
+  # summary on the index by default.
+  - hooks/auto_excerpt.py
 
 # Markdown extensions
 markdown_extensions:
