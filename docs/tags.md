@@ -3,7 +3,7 @@ hide:
   - navigation
 ---
 
-# Tags
+# tags
 
 Controlled vocabulary — pick from these so tags stay useful for discovery
 (one of the things good blogs get right). Click a tag to jump to its posts.

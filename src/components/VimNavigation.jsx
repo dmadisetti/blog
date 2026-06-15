@@ -96,9 +96,12 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
 
   // Apply CSS class to current block
   useEffect(() => {
-    // Remove class from all blocks
-    blocks.forEach(block => {
-      block.element?.classList.remove('vim-cursor-active');
+    // Clear stale highlights DOCUMENT-WIDE first. Hash-jumps and Material's
+    // instant-nav re-inits can leave a `vim-cursor-active` element that isn't
+    // in the current `blocks` set, so iterating only `blocks` let highlights
+    // pile up after a few clicks. A global sweep keeps exactly one.
+    document.querySelectorAll('.vim-cursor-active').forEach((el) => {
+      el.classList.remove('vim-cursor-active');
     });
 
     // Add class to current block
@@ -107,6 +110,56 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
       currentBlock.element.classList.add('vim-cursor-active');
     }
   }, [globalCursor.blockId, blocks]);
+
+  // Jumping to a header (TOC link, permalink, or landing on a #hash) moves the
+  // cursor onto that block.
+  useEffect(() => {
+    const moveToHash = (rawHash) => {
+      const id = decodeURIComponent((rawHash || '').replace(/^#/, ''));
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      // Exact block match first, then the block that CONTAINS the target (e.g.
+      // a permalink anchor inside a heading). Never match a block merely
+      // contained BY the target — that was highlighting the wrong inner block.
+      const block =
+        blocks.find((b) => b.element === target) ||
+        blocks.find((b) => b.element && b.element.contains(target));
+      if (block) {
+        setGlobalCursor({ blockId: block.id, line: 0, col: 0 });
+      }
+    };
+
+    // Intercept intentional clicks on in-page anchors (TOC entries, heading
+    // permalinks). Material navigates these via instant-nav/pushState, which
+    // does NOT fire `hashchange`. We deliberately do NOT poll location — that
+    // would also catch navigation.tracking's scroll updates and fight manual
+    // j/k nav.
+    const onClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      let url;
+      try {
+        url = new URL(a.href, window.location.href);
+      } catch (_) {
+        return;
+      }
+      if (url.hash && url.pathname === window.location.pathname) {
+        moveToHash(url.hash);
+      }
+    };
+    const onHashOrPop = () => moveToHash(window.location.hash);
+
+    moveToHash(window.location.hash); // landing on a #hash
+    document.addEventListener('click', onClick);
+    window.addEventListener('hashchange', onHashOrPop);
+    window.addEventListener('popstate', onHashOrPop);
+    return () => {
+      document.removeEventListener('click', onClick);
+      window.removeEventListener('hashchange', onHashOrPop);
+      window.removeEventListener('popstate', onHashOrPop);
+    };
+  }, [blocks]);
 
   // Scroll management (25-75% viewport constraint)
   useEffect(() => {
@@ -526,7 +579,8 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
     'ctrl+l': { primitive: 'wordForward' },
     'ctrl+h': { primitive: 'wordBackward' },
     'f': { awaitChar: 'findChar' },
-    'ctrl+w': { awaitWindowCmd: true }
+    'ctrl+w': { awaitWindowCmd: true },
+    'Enter': { openLink: true }
   };
 
   const windowCommandMap = {
@@ -558,6 +612,27 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
 
     if (action.awaitWindowCmd) {
       setAwaitingWindowCmd(true);
+      return;
+    }
+
+    if (action.openLink) {
+      const block = blocks.find((b) => b.id === globalCursor.blockId);
+      const el = block && block.element;
+      if (el) {
+        const isPost = block.type === 'post';
+        // On the index a post block opens the post in a NEW TAB; elsewhere,
+        // open the block's link (honoring its own target).
+        const link = isPost
+          ? el.querySelector('.md-post__action a[href], a[href]')
+          : el.querySelector('a[href]');
+        if (link) {
+          if (isPost || link.target === '_blank') {
+            window.open(link.href, '_blank', 'noopener');
+          } else {
+            window.location.href = link.href;
+          }
+        }
+      }
       return;
     }
 
@@ -685,6 +760,18 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
     const handleKeyDown = (e) => {
       const key = e.key;
 
+      // Don't hijack keys while typing in an input (search box, forms, etc.).
+      const ae = document.activeElement;
+      if (
+        ae &&
+        (ae.tagName === 'INPUT' ||
+          ae.tagName === 'TEXTAREA' ||
+          ae.tagName === 'SELECT' ||
+          ae.isContentEditable)
+      ) {
+        return;
+      }
+
       if (key === 'Escape') {
         setPendingCount(null);
         setAwaitingChar(null);
@@ -763,7 +850,10 @@ function computeMaxCharsPerLine(element) {
       computeMaxCharsPerLine._canvas ||
       (computeMaxCharsPerLine._canvas = document.createElement('canvas'));
     const ctx = canvas.getContext('2d');
-    ctx.font = `${cs.fontSize} ${cs.fontFamily}`;
+    // The cursor only shows on the active block, which renders MONO (Fira Code)
+    // under the experiment — so measure mono width regardless of the block's
+    // resting (proportional) font, so the cached wrap matches the active state.
+    ctx.font = `${cs.fontSize} "Fira Code", ui-monospace, monospace`;
     const charW = ctx.measureText('0').width || 9;
     return Math.max(20, Math.min(200, Math.floor(width / charW)));
   } catch (e) {

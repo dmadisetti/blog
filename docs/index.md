@@ -1,4 +1,3 @@
-# Dylan's Notes
+# readme.<u>dm</u>
 
-Interactive notes, experiments, and musings — every post is a live
-[marimo](https://marimo.io/) notebook you can run right in your browser.
+a small blog<br>by [<u>@dm</u>adisetti](https://github.com/dmadisetti). **Vim Navigation Tip**: Use `hjkl` or `←↓↑→` to move around.

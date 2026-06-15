@@ -12,13 +12,15 @@
 .marimo,
 marimo-island,
 marimo-cell-output {
-  font-family: var(--md-text-font, "Fira Code"), ui-monospace, monospace;
+  /* marimo is ALWAYS mono (Fira Code), regardless of the proportional body
+     font — hardcoded, not inherited from --md-text-font. */
+  font-family: "Fira Code", ui-monospace, monospace;
   /* Match Material's body type size (.md-typeset is 0.8rem) — marimo's own
      default runs larger and looked oversized next to the prose. */
   font-size: 0.8rem;
   /* Override marimo's own font variables at the source so nested components
-     (tables, code editors, widgets) pick up the site font too. */
-  --marimo-text-font: var(--md-text-font, "Fira Code"), ui-monospace, monospace;
+     (tables, code editors, widgets) pick up the mono font too. */
+  --marimo-text-font: "Fira Code", ui-monospace, monospace;
   --marimo-heading-font: "Fira Sans", var(--md-text-font), sans-serif;
   --marimo-monospace-font: var(--md-code-font, "Fira Code"), ui-monospace, monospace;
 

@@ -20,10 +20,13 @@
 .md-tabs__list {
   margin: 0;
 }
+.md-tabs__item {
+  height: 1.75rem;
+}
 .md-tabs__link {
   font-size: 0.66rem;
-  margin-top: 0.45rem;
-  margin-bottom: 0.45rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.2rem;
   opacity: 0.85;
 }
 .md-tabs__link--active,
@@ -55,6 +58,47 @@
 .md-typeset h3 {
   font-weight: 600;
   font-size: 1.08rem;
+}
+
+/* --- Signature logo: the descending stem drops to the header's bottom rule,
+   so the border reads as a continuation of the same pen stroke. ----------- */
+.md-header__button.md-logo {
+  align-self: stretch; /* full header height */
+  display: flex;
+  align-items: flex-end; /* drop the stem to the header floor */
+  padding: 0;
+  margin: 0 0.5rem 0 0;
+  overflow: visible;
+}
+.md-logo-sig {
+  display: block;
+  color: currentColor; /* inherits header text color → light/dark */
+  overflow: visible;
+}
+/* Material clamps `.md-header__button.md-logo svg` to 1.2rem (~15px) and out-
+   specifies a bare `.md-logo-sig`, so target it explicitly. width:auto keeps
+   the portrait aspect (no squish). */
+.md-header__button.md-logo svg.md-logo-sig,
+.md-nav__button.md-logo svg.md-logo-sig {
+  height: 2.6rem;
+  width: auto;
+  /* The header inner has bottom padding, leaving a hair of gap between the pool
+     and the rule; drop the mark so the pool actually meets (slightly overlaps)
+     the border. */
+  transform: translateY(3px);
+}
+/* Make the header's bottom rule the same ink the stem is drawn in, so the
+   stem appears to draw it. (Overrides the hairline set above/in paper-dark.) */
+.md-header {
+  border-bottom: 2px solid var(--md-default-fg-color--light);
+}
+
+/* "dm" brand emphasis underline (header title, blog H1, @dm byline). */
+.md-header__title u,
+.md-typeset h1 u,
+.md-typeset a u {
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.16em;
 }
 
 /* --- Blog index: breathing room between the prelude and the post list ----- */

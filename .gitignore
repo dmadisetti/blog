@@ -49,3 +49,7 @@ _queue/
 # Old working backups + archive (contains personal journals + half-baked drafts).
 # Local-only; pull keepers into _queue/ when triaged, don't publish wholesale.
 backup/
+
+# Personal reMarkable tablet dump (thesis, notebooks). The logo is inlined
+# in overrides/partials/logo.html, so nothing here is needed by the build.
+remarkable-pull/

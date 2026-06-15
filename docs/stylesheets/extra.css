@@ -9,6 +9,9 @@
   padding-left: 1rem;
   border-radius: 3px;
   background-color: color-mix(in srgb, var(--md-default-fg-color) 10%, transparent);
+  /* Experiment: prose "goes terminal" — mono — while it's the active block.
+     (Headings keep Fira Sans: their .md-typeset h* rule is more specific.) */
+  font-family: "Fira Code", ui-monospace, monospace;
 }
 
 /* The per-character cursor (terminal block) on element-level pages. */
