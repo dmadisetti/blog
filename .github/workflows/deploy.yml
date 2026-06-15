@@ -55,3 +55,38 @@ jobs:
       - name: Build and deploy MkDocs site
         run: |
           uv run mkdocs gh-deploy --force
+
+      # Ping IndexNow (Bing/Yandex/Seznam — and Bing feeds ChatGPT search) so
+      # new/updated posts get crawled fast. The key file lives at docs/<key>.txt
+      # and ships to the site root. Host + URL list are derived from the live
+      # sitemap, so this auto-follows if site_url changes (e.g. readme.dm).
+      - name: Ping IndexNow
+        continue-on-error: true   # discoverability is best-effort; never fail a deploy
+        env:
+          INDEXNOW_KEY: b3115abfdc29443bb937e3f607feef6f
+        run: |
+          set -euo pipefail
+          # site_url from mkdocs.yml -> sitemap location.
+          export SITE_URL=$(uv run python -c "import yaml;print(yaml.safe_load(open('mkdocs.yml'))['site_url'].rstrip('/'))")
+          export HOST=$(printf '%s' "$SITE_URL" | sed -E 's#^https?://([^/]+).*#\1#')
+          export KEY_LOCATION="$SITE_URL/$INDEXNOW_KEY.txt"
+          echo "Submitting for host=$HOST keyLocation=$KEY_LOCATION"
+
+          # Give Pages a moment to serve the freshly pushed sitemap.
+          for i in 1 2 3 4 5; do
+            if curl -fsSL "$SITE_URL/sitemap.xml" -o sitemap.xml; then break; fi
+            echo "sitemap not ready yet (attempt $i), waiting..."; sleep 15
+          done
+
+          # Build the IndexNow payload from the sitemap <loc> URLs (cap 10000).
+          # Single-line python (stdlib only) keeps it inside the YAML block scalar.
+          PAYLOAD=$(grep -oE '<loc>[^<]+</loc>' sitemap.xml | sed -E 's#</?loc>##g' | head -n 10000 | python3 -c "import json,os,sys; urls=[l.strip() for l in sys.stdin if l.strip()]; print('' if not urls else json.dumps({'host':os.environ['HOST'],'key':os.environ['INDEXNOW_KEY'],'keyLocation':os.environ['KEY_LOCATION'],'urlList':urls}))")
+          if [ -z "$PAYLOAD" ]; then echo "No URLs in sitemap; skipping."; exit 0; fi
+
+          HTTP=$(curl -sS -o /tmp/indexnow.out -w '%{http_code}' \
+            -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data "$PAYLOAD")
+          echo "IndexNow responded HTTP $HTTP"; cat /tmp/indexnow.out || true
+          # 200/202 = accepted; 422 usually = key/host mismatch worth seeing.
+          case "$HTTP" in 200|202) echo "OK";; *) echo "Non-success (see above), not failing deploy";; esac
