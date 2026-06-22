@@ -38,7 +38,7 @@ Last year I asked dad for his whale sighting data, figuring I could do some basi
 
 In restarting this blog, I wanted to start off with something I felt was worth sharing and highlight a bit of my world (in this case our shared worlds).
 I've named this post `Project Setti`.
-[Project CETI](https://www.projectceti.org/) is an organization driven to explore <u>C</u> intelligence, which is in turn a play of [Project SETI](https://www.seti.org/) which is an organization driven to explore <u>ET</u> intelligence.
+[Project CETI](https://www.projectceti.org/) is an organization driven to explore <u>C</u>etacean intelligence, which is in turn a play of [Project SETI](https://www.seti.org/) which is an organization driven to explore <u>ET</u> intelligence.
 Project Setti is hopefully a demonstration of [Madi<u>setti</u>][That's us if it wasn't evident] intelligence, but the results are not conclusive.
 
 Izzy has agreed to allow this surface-level data to be available, but outside of this visualization, we ask that you reach out to us before usage.
@@ -123,6 +123,6 @@ I was heavily inspired by a [waterlines visualization post on Observable](https:
 
 There's a large corpus of research and toolkits I'd love to run his data on in my spare time.
 For instance, his recorded whale songs.
-We're still working our workflows and ideas we can glean from the data itself, leave a comment if you have any ideas or would like to collaborate on this project.
+We're still working on our workflows and ideas we can glean from the data itself, leave a comment if you have any ideas or would like to collaborate on this project.
 
-If you enjoyed this post, consider subscribing to the substack, and following [@madisetti.a](https://www.instagram.com/madisetti.a/) on instagram (Happy Father's Day!)
+If you enjoyed this post, consider subscribing to the substack (below), and following [@madisetti.a](https://www.instagram.com/madisetti.a/) on instagram (Happy Father's Day!)
