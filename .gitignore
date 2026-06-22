@@ -17,8 +17,8 @@ site/
 node_modules/
 npm-debug.log
 yarn-error.log
-package-lock.json
 yarn.lock
+# package-lock.json IS committed — CI runs `npm ci`, which requires it.
 
 # Build outputs
 docs/javascripts/vim-navigation.js
