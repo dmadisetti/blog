@@ -1,0 +1,177 @@
+/* Load Fira Sans for headings — the proportional sibling of Fira Code (both
+   from the Fira superfamily), so headings pair cleanly with the mono body. */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap");
+
+/* Site chrome tweaks: compact header, Fira Sans headings, blog-index spacing. */
+
+/* --- Compact header by default ------------------------------------------- */
+/* Material's header + tab row are tall; tighten both so the top bar is lean. */
+.md-header {
+  box-shadow: none;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-header__inner {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+.md-header__title {
+  font-size: 0.78rem;
+}
+.md-tabs__list {
+  margin: 0;
+}
+.md-tabs__item {
+  height: 1.75rem;
+}
+.md-tabs__link {
+  font-size: 0.66rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.2rem;
+  opacity: 0.85;
+}
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  opacity: 1;
+}
+
+/* --- Headings: Fira Sans (proportional) against the Fira Code mono body --- */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  font-family: "Fira Sans", var(--md-text-font), sans-serif;
+}
+.md-typeset h1 {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-size: 1.9rem;
+  line-height: 1.15;
+}
+.md-typeset h2 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-size: 1.35rem;
+  margin-top: 2em;
+}
+.md-typeset h3 {
+  font-weight: 600;
+  font-size: 1.08rem;
+}
+
+/* --- Signature logo: the descending stem drops to the header's bottom rule,
+   so the border reads as a continuation of the same pen stroke. ----------- */
+.md-header__button.md-logo {
+  align-self: stretch; /* full header height */
+  display: flex;
+  align-items: flex-end; /* drop the stem to the header floor */
+  padding: 0;
+  margin: 0 0.5rem 0 0;
+  overflow: visible;
+}
+.md-logo-sig {
+  display: block;
+  color: currentColor; /* inherits header text color → light/dark */
+  overflow: visible;
+}
+/* Material clamps `.md-header__button.md-logo svg` to 1.2rem (~15px) and out-
+   specifies a bare `.md-logo-sig`, so target it explicitly. width:auto keeps
+   the portrait aspect (no squish). */
+.md-header__button.md-logo svg.md-logo-sig,
+.md-nav__button.md-logo svg.md-logo-sig {
+  height: 2.6rem;
+  width: auto;
+  /* The header inner has bottom padding, leaving a hair of gap between the pool
+     and the rule; drop the mark so the pool actually meets (slightly overlaps)
+     the border. */
+  transform: translateY(3px);
+}
+/* Make the header's bottom rule the same ink the stem is drawn in, so the
+   stem appears to draw it. (Overrides the hairline set above/in paper-dark.) */
+.md-header {
+  border-bottom: 2px solid var(--md-default-fg-color--light);
+}
+
+/* "dm" brand emphasis underline (header title, blog H1, @dm byline). */
+.md-header__title u,
+.md-typeset h1 u,
+.md-typeset a u {
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.16em;
+}
+
+/* --- Post footer: Substack subscribe + giscus comments ------------------- */
+.post-extras {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+.post-extras .subscribe p {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8rem;
+}
+.subscribe__frame {
+  display: block;
+  max-width: 480px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+}
+/* Substack's embed is a hard white card that ignores dark mode. It's a
+   cross-origin iframe (can't theme its insides), so we filter the element to
+   read dark-native. A *partial* invert (0.85) lands it on a soft dark gray near
+   the page bg instead of stark #000, and the contrast cut mutes the flipped
+   colors; hue-rotate keeps the brand button roughly on-hue. Tune invert toward
+   1.0 for darker / 0.8 for lighter. */
+[data-md-color-scheme="slate"] .subscribe__frame {
+  filter: invert(0.85) hue-rotate(180deg) contrast(0.9) brightness(0.95);
+}
+.post-extras section + section {
+  margin-top: 2.5rem;
+}
+
+/* --- Blog index: breathing room between the prelude and the post list ----- */
+.md-post--excerpt {
+  margin-bottom: 2.5rem;
+}
+.md-post--excerpt:first-of-type {
+  margin-top: 3.5rem;
+}
+
+/* --- Image blocks: <figure markdown="span"> … <figcaption> --------------- */
+/* A full body-width contrast band frames the (often small) image: the tinted
+   bars either side of the centered image take up the body width, so a 300px
+   photo reads as intentional instead of lost. Cleared of any floats. */
+.md-typeset figure {
+  clear: both;
+  width: 100%;
+  margin: 1.9rem 0;
+  padding: 1.75rem 1rem;
+  background: color-mix(in srgb, var(--md-default-fg-color) 6%, transparent);
+  border-radius: 4px;
+  text-align: center;
+}
+.md-typeset figure > img,
+.md-typeset figure > p > img {
+  display: inline-block;
+  max-width: 100%;
+  max-height: 24rem;
+  height: auto;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+  background: var(--md-default-bg-color); /* transparent PNGs sit on page bg, not the band */
+}
+.md-typeset figure > figcaption {
+  margin: 0.9rem auto 0;
+  max-width: 34rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  text-align: center;
+}
+.md-typeset figure > figcaption a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}

@@ -1,0 +1,936 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="General notes and musings of Dylan Madisetti">
+      
+      
+        <meta name="author" content="Dylan Madisetti">
+      
+      
+      
+      
+      
+        
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="/feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="/feed_rss_updated.xml">
+      
+      <link rel="icon" href="/assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>readme.dm</title>
+      
+    
+    
+      <link rel="stylesheet" href="/assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="/assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="/stylesheets/marimo-islands.css">
+    
+      <link rel="stylesheet" href="/stylesheets/site.css">
+    
+      <link rel="stylesheet" href="/stylesheets/paper-dark.css">
+    
+    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="readme.dm">
+  <meta property="og:title" content="readme.dm">
+  <meta property="og:description" content="General notes and musings of Dylan Madisetti">
+  <meta property="og:url" content="https://readme.dm/">
+  <meta name="twitter:title" content="readme.dm">
+  <meta name="twitter:description" content="General notes and musings of Dylan Madisetti">
+  <meta name="twitter:card" content="summary">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="/." title="readme.dm" class="md-header__button md-logo" aria-label="readme.dm" data-md-component="logo">
+      <svg class="md-logo-sig" viewBox="40.13 268.79 85.25 123.8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+	<g id="p1" style="display:inline">
+		<g id="CrdtId(0, 1)" transform="translate(0.0, 0.0)">
+		<g id="CrdtId(0, 11)" transform="translate(0.0, 0.0)">
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.052; opacity:1" stroke-linecap="round" points="65.163,323.505 65.156,323.319 65.184,322.465 65.268,321.336 65.593,319.353 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.270; opacity:1" stroke-linecap="round" points="65.593,319.353 65.707,318.917 66.198,317.426 66.618,316.608 67.048,316.033 67.441,315.764 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.920; opacity:1" stroke-linecap="round" points="67.441,315.764 67.795,315.691 68.149,315.830 68.357,316.037 68.940,317.013 69.217,318.091 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.227; opacity:1" stroke-linecap="round" points="69.217,318.091 69.357,319.267 69.370,321.880 69.234,324.272 69.016,326.934 68.547,331.350 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.199; opacity:1" stroke-linecap="round" points="68.547,331.350 68.114,336.289 67.602,344.555 67.539,349.095 67.574,350.538 67.732,352.996 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.242; opacity:1" stroke-linecap="round" points="67.732,352.996 68.070,356.269 68.223,357.173 68.759,360.060 68.933,361.116 69.005,361.981 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.889; opacity:1" stroke-linecap="round" points="69.005,361.981 68.731,363.687 68.545,364.333 68.441,364.620 68.226,365.138 68.025,365.670 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.151; opacity:1" stroke-linecap="round" points="68.025,365.670 67.925,365.944 67.925,365.944 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.043; opacity:1" stroke-linecap="round" points="61.199,279.954 61.206,280.145 61.177,280.224 60.946,280.512 60.941,280.383 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.219; opacity:1" stroke-linecap="round" points="60.941,280.383 60.987,280.248 61.006,280.241 61.020,280.186 61.036,280.184 61.042,280.054 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.403; opacity:1" stroke-linecap="round" points="61.042,280.054 61.116,280.155 61.163,279.803 61.238,279.644 61.343,279.684 61.599,279.041 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.902; opacity:1" stroke-linecap="round" points="61.599,279.041 61.810,278.802 61.937,278.819 62.342,278.359 62.981,278.380 63.206,278.246 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.902; opacity:1" stroke-linecap="round" points="63.206,278.246 63.846,278.332 64.641,278.051 64.917,278.154 65.047,278.522 65.094,278.426 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.759; opacity:1" stroke-linecap="round" points="65.094,278.426 65.184,278.551 65.465,281.498 65.241,281.553 65.131,281.758 64.708,281.683 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.092; opacity:1" stroke-linecap="round" points="64.708,281.683 63.814,281.957 62.035,281.739 61.773,281.818 60.718,281.474 60.392,281.212 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.280; opacity:1" stroke-linecap="round" points="60.392,281.212 60.343,281.023 60.434,280.780 61.238,279.322 61.578,279.117 62.778,277.457 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.734; opacity:1" stroke-linecap="round" points="62.778,277.457 63.110,277.267 63.315,276.986 63.441,276.866 63.454,276.805 63.480,276.790 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.174; opacity:1" stroke-linecap="round" points="63.480,276.790 63.517,276.808 63.540,276.845 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.171; opacity:1" stroke-linecap="round" points="53.646,329.914 53.619,329.911 53.418,329.871 52.974,329.798 52.351,329.715 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.900; opacity:1" stroke-linecap="round" points="52.351,329.715 51.752,329.595 49.993,329.178 49.216,329.122 48.577,328.754 48.385,328.334 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.434; opacity:1" stroke-linecap="round" points="48.385,328.334 48.307,328.371 48.134,328.162 48.157,327.910 48.342,327.154 48.397,327.218 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.431; opacity:1" stroke-linecap="round" points="48.397,327.218 49.012,326.702 49.187,326.463 50.698,324.926 52.876,323.741 55.153,322.701 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.391; opacity:1" stroke-linecap="round" points="55.153,322.701 56.834,322.025 60.697,320.781 66.406,319.677 71.428,319.400 72.788,319.410 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.364; opacity:1" stroke-linecap="round" points="72.788,319.410 76.900,319.702 79.639,320.019 85.247,320.970 92.356,323.100 95.260,324.117 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.215; opacity:1" stroke-linecap="round" points="95.260,324.117 100.971,325.892 102.362,326.143 103.704,326.565 109.840,329.269 112.907,330.879 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.046; opacity:1" stroke-linecap="round" points="112.907,330.879 114.496,331.844 115.807,332.762 116.693,333.726 117.238,334.695 117.385,335.616 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.282; opacity:1" stroke-linecap="round" points="117.385,335.616 117.135,336.439 116.487,337.218 115.413,337.926 113.947,338.679 110.056,340.042 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.324; opacity:1" stroke-linecap="round" points="110.056,340.042 108.912,340.270 106.402,340.987 103.620,341.686 100.789,342.380 99.391,342.755 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.211; opacity:1" stroke-linecap="round" points="99.391,342.755 92.239,344.066 90.810,344.069 89.385,344.279 87.948,344.765 75.951,347.574 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.370; opacity:1" stroke-linecap="round" points="75.951,347.574 68.623,349.044 64.620,349.683 61.162,350.083 58.315,350.309 56.695,350.584 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.409; opacity:1" stroke-linecap="round" points="56.695,350.584 56.040,350.549 54.058,350.345 53.360,349.969 53.065,350.049 51.949,349.972 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.271; opacity:1" stroke-linecap="round" points="51.949,349.972 51.604,350.069 51.500,350.019 51.406,350.017 51.334,350.028 51.331,349.968 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.225; opacity:1" stroke-linecap="round" points="51.331,349.968 51.331,349.968 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.032; opacity:1" stroke-linecap="round" points="70.222,286.661 70.069,286.796 69.792,286.632 69.680,286.789 69.451,286.538 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.147; opacity:1" stroke-linecap="round" points="69.451,286.538 69.238,286.648 69.195,286.726 69.047,286.750 69.015,286.715 68.957,286.750 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.369; opacity:1" stroke-linecap="round" points="68.957,286.750 68.908,286.713 68.948,286.680 68.960,286.371 69.418,285.206 70.008,284.755 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.558; opacity:1" stroke-linecap="round" points="70.008,284.755 71.308,284.868 71.949,285.142 72.634,285.714 73.061,286.421 73.026,286.755 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.725; opacity:1" stroke-linecap="round" points="73.026,286.755 71.554,287.946 70.592,288.262 69.964,288.290 69.488,288.186 69.212,287.828 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.367; opacity:1" stroke-linecap="round" points="69.212,287.828 69.199,287.179 69.242,286.804 69.319,286.404 69.430,286.047 69.553,285.344 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.079; opacity:1" stroke-linecap="round" points="69.553,285.344 69.750,284.808 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.090; opacity:1" stroke-linecap="round" points="57.941,361.750 57.919,361.757 57.782,361.780 57.512,361.812 56.778,361.945 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.245; opacity:1" stroke-linecap="round" points="56.778,361.945 56.429,362.026 55.903,362.327 55.730,362.319 55.143,362.627 54.801,362.957 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.243; opacity:1" stroke-linecap="round" points="54.801,362.957 54.726,363.165 54.701,363.073 54.777,362.881 54.759,362.778 55.019,362.837 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.741; opacity:1" stroke-linecap="round" points="55.019,362.837 55.072,362.950 55.279,362.773 55.945,362.727 58.110,362.200 58.603,362.114 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.229; opacity:1" stroke-linecap="round" points="58.603,362.114 59.157,362.106 62.629,361.708 65.094,361.553 70.798,361.502 75.137,361.323 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.227; opacity:1" stroke-linecap="round" points="75.137,361.323 79.306,361.329 81.220,361.458 83.016,361.387 85.355,361.402 86.744,361.343 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.720; opacity:1" stroke-linecap="round" points="86.744,361.343 87.352,361.363 88.892,361.316 89.695,361.382 90.788,361.373 90.858,361.261 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.288; opacity:1" stroke-linecap="round" points="90.858,361.261 90.735,361.445 90.379,361.591 89.999,361.633 89.545,361.736 88.985,361.901 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.554; opacity:1" stroke-linecap="round" points="88.985,361.901 88.634,361.908 88.318,362.030 84.309,363.738 82.591,364.561 78.360,366.016 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.869; opacity:1" stroke-linecap="round" points="78.360,366.016 74.163,367.273 69.813,368.212 67.198,368.579 63.795,369.265 61.786,369.161 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.434; opacity:1" stroke-linecap="round" points="61.786,369.161 61.252,368.989 61.167,368.823 61.369,368.593 62.250,368.381 62.861,368.008 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.265; opacity:1" stroke-linecap="round" points="62.861,368.008 63.298,367.882 63.783,367.925 64.138,368.117 64.360,368.297 64.545,368.612 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.306; opacity:1" stroke-linecap="round" points="64.545,368.612 64.624,368.892 64.873,369.389 64.986,369.788 65.120,369.994 65.473,371.399 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.241; opacity:1" stroke-linecap="round" points="65.473,371.399 65.820,372.228 65.964,372.258 66.205,372.588 66.282,372.647 66.563,372.811 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.551; opacity:1" stroke-linecap="round" points="66.563,372.811 66.871,373.127 67.178,373.585 67.502,374.312 67.991,376.616 68.279,378.745 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.391; opacity:1" stroke-linecap="round" points="68.279,378.745 68.990,385.132 69.538,388.396 70.331,391.924 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.569; opacity:1" stroke-linecap="round" points=""/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.189; opacity:1" stroke-linecap="round" points="" />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.032; opacity:1" stroke-linecap="round" points="75.258,292.982 75.234,292.565 75.181,292.469 75.121,292.519 75.164,292.639 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.230; opacity:1" stroke-linecap="round" points="75.164,292.639 76.227,291.593 76.693,291.419 77.426,291.867 77.618,291.820 78.423,292.599 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.245; opacity:1" stroke-linecap="round" points="78.423,292.599 78.335,292.988 77.632,293.570 77.019,293.913 76.361,294.082 76.141,293.986 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.554; opacity:1" stroke-linecap="round" points="76.141,293.986 75.617,294.306 75.586,293.962 75.597,293.989 75.631,293.912 75.658,293.862 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.176; opacity:1" stroke-linecap="round" points="75.658,293.862 75.671,293.884 75.699,293.797 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.043; opacity:1" stroke-linecap="round" points="68.605,341.268 68.601,341.258 68.559,341.069 68.534,340.867 68.524,340.290 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.228; opacity:1" stroke-linecap="round" points="68.524,340.290 68.574,340.102 68.609,339.673 68.696,339.214 68.756,338.571 68.768,338.364 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.902; opacity:1" stroke-linecap="round" points="68.768,338.364 68.855,337.621 68.897,336.835 68.865,336.551 68.727,337.241 68.258,338.673 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.404; opacity:1" stroke-linecap="round" points="68.258,338.673 68.159,339.324 68.064,339.989 67.955,341.260 67.970,344.326 68.163,345.397 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.407; opacity:1" stroke-linecap="round" points="68.163,345.397 68.634,346.747 69.111,347.598 69.382,347.928 70.318,348.622 71.034,348.895 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.274; opacity:1" stroke-linecap="round" points="71.034,348.895 72.422,349.048 73.569,348.842 74.360,348.494 75.507,347.767 76.660,345.998 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.233; opacity:1" stroke-linecap="round" points="76.660,345.998 76.852,345.452 78.288,342.899 78.870,341.666 79.571,339.731 79.740,339.502 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.249; opacity:1" stroke-linecap="round" points="79.740,339.502 80.551,337.613 80.832,336.722 80.924,336.026 80.514,336.710 80.347,337.433 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.263; opacity:1" stroke-linecap="round" points="80.347,337.433 80.122,338.623 79.832,341.182 79.506,346.030 79.490,346.889 79.447,349.049 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.242; opacity:1" stroke-linecap="round" points="79.447,349.049 79.553,354.621 79.708,358.007 79.738,359.743 79.665,360.673 79.528,361.532 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.234; opacity:1" stroke-linecap="round" points="79.528,361.532 79.528,361.532 79.339,362.182 79.213,362.435 79.063,362.705 78.928,363.016 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.072; opacity:1" stroke-linecap="round" points="79.338,359.563 79.348,359.563 79.354,359.563 79.360,359.555 79.355,359.524 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.372; opacity:1" stroke-linecap="round" points="79.355,359.524 79.317,359.437 79.283,359.410 79.284,359.151 79.488,357.741 79.610,356.494 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.229; opacity:1" stroke-linecap="round" points="79.610,356.494 80.170,352.284 80.653,349.883 81.352,347.398 83.417,342.168 84.931,338.924 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.235; opacity:1" stroke-linecap="round" points="84.931,338.924 86.356,336.321 87.169,335.169 87.660,334.638 87.889,334.651 87.954,334.960 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.105; opacity:1" stroke-linecap="round" points="87.954,334.960 87.805,335.607 87.691,336.555 87.563,337.347 86.859,341.478 86.478,344.968 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.253; opacity:1" stroke-linecap="round" points="86.478,344.968 86.586,347.142 87.076,348.777 87.015,348.432 87.062,348.243 87.490,347.441 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.740; opacity:1" stroke-linecap="round" points="87.490,347.441 88.453,345.180 90.309,340.249 91.329,337.729 92.497,335.171 93.557,333.165 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.885; opacity:1" stroke-linecap="round" points="93.557,333.165 94.451,331.558 95.260,330.373 95.314,330.366 95.328,330.549 94.834,331.670 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.089; opacity:1" stroke-linecap="round" points="94.834,331.670 94.689,332.293 94.307,334.992 94.164,336.324 94.121,339.161 94.516,341.428 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.247; opacity:1" stroke-linecap="round" points="94.516,341.428 95.443,343.836 96.366,345.371 97.086,346.072 97.314,346.433 97.888,346.782 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.251; opacity:1" stroke-linecap="round" points="97.888,346.782 98.142,346.810 98.661,347.201 98.919,347.245 98.919,347.245 99.169,347.147 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.156; opacity:1" stroke-linecap="round" points="99.169,347.147 99.169,347.147 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.059; opacity:1" stroke-linecap="round" points="57.838,312.118 57.717,312.118 57.514,312.119 56.945,312.091 56.460,312.005 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.394; opacity:1" stroke-linecap="round" points="56.460,312.005 56.080,312.004 55.635,311.947 55.244,311.825 54.968,311.696 54.847,311.451 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.436; opacity:1" stroke-linecap="round" points="54.847,311.451 54.927,311.255 55.039,311.206 55.064,311.304 55.154,311.289 56.229,310.699 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.418; opacity:1" stroke-linecap="round" points="56.229,310.699 57.659,309.761 59.941,308.744 62.182,307.867 64.575,307.167 66.255,306.777 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.400; opacity:1" stroke-linecap="round" points="66.255,306.777 68.753,306.446 72.817,306.462 75.015,306.644 77.363,306.789 78.203,306.778 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.912; opacity:1" stroke-linecap="round" points="78.203,306.778 79.006,306.820 79.304,306.812 78.038,306.708 76.484,306.814 71.894,307.614 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.531; opacity:1" stroke-linecap="round" points="71.894,307.614 67.255,307.895 64.734,307.889 60.305,307.699 59.416,307.596 57.536,307.503 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.920; opacity:1" stroke-linecap="round" points="57.536,307.503 56.507,307.414 55.640,307.403 55.557,307.255 55.453,307.601 55.331,307.487 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.253; opacity:1" stroke-linecap="round" points="55.331,307.487 55.317,307.575 55.231,307.610 54.989,307.945 54.910,307.995 54.822,308.190 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.331; opacity:1" stroke-linecap="round" points="54.822,308.190 54.650,308.414 54.383,308.813 54.286,308.979 54.034,309.163 53.829,309.222 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.185; opacity:1" stroke-linecap="round" points="53.829,309.222 53.819,309.273 53.924,308.995 54.072,309.039 54.068,308.860 54.083,308.980 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.358; opacity:1" stroke-linecap="round" points="54.083,308.980 54.039,309.078 53.987,309.071 53.965,309.216 54.095,309.033 54.120,309.180 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.743; opacity:1" stroke-linecap="round" points="54.120,309.180 54.239,309.197 54.326,308.917 54.323,309.272 54.280,309.137 54.363,308.797 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.258; opacity:1" stroke-linecap="round" points="54.363,308.797 54.630,308.109 56.271,304.918 57.930,301.257 62.105,291.178 62.670,289.326 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.096; opacity:1" stroke-linecap="round" points="62.670,289.326 62.794,288.677 62.717,288.688 62.317,289.731 61.957,291.843 61.656,294.039 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.893; opacity:1" stroke-linecap="round" points="61.656,294.039 61.547,296.277 61.591,297.284 61.894,299.176 62.289,300.319 62.767,301.090 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.905; opacity:1" stroke-linecap="round" points="62.767,301.090 63.125,301.389 64.507,301.569 65.061,301.199 66.454,299.824 67.515,298.533 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.923; opacity:1" stroke-linecap="round" points="67.515,298.533 68.738,296.522 69.536,294.817 69.963,293.454 69.674,294.353 69.562,295.911 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.242; opacity:1" stroke-linecap="round" points="69.562,295.911 69.654,296.847 70.023,298.250 70.517,298.937 71.227,299.579 72.374,299.877 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.078; opacity:1" stroke-linecap="round" points="72.374,299.877 73.996,299.774 74.461,299.641 75.481,299.054 76.421,298.173 76.686,298.040 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.929; opacity:1" stroke-linecap="round" points="76.686,298.040 76.744,298.820 76.693,300.310 76.679,301.287 76.673,302.545 76.675,302.850 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.281; opacity:1" stroke-linecap="round" points="76.675,302.850 76.678,303.178 76.678,303.178 76.678,303.178 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.061; opacity:1" stroke-linecap="round" points="59.190,281.054 59.150,280.999 58.998,280.745 58.908,280.556 58.910,280.459 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.300; opacity:1" stroke-linecap="round" points="58.910,280.459 59.343,279.472 60.200,279.016 61.638,278.041 62.473,277.731 62.806,277.831 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.295; opacity:1" stroke-linecap="round" points="62.806,277.831 63.268,277.698 63.777,277.707 64.619,278.044 65.166,278.568 66.279,280.368 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.336; opacity:1" stroke-linecap="round" points="66.279,280.368 66.331,280.296 66.269,280.112 66.158,280.025 66.103,280.127 65.339,279.848 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.578; opacity:1" stroke-linecap="round" points="65.339,279.848 62.690,280.131 62.552,280.163 62.347,280.250 62.287,280.290 62.287,280.290 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.122; opacity:1" stroke-linecap="round" points="62.287,280.290 62.237,280.380 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.030; opacity:1" stroke-linecap="round" points="70.938,284.325 71.387,283.960 71.892,284.021 72.325,284.198 72.349,284.327 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.180; opacity:1" stroke-linecap="round" points="72.349,284.327 72.274,284.408 72.219,284.396 72.145,284.398 72.119,284.386 72.069,284.406 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.407; opacity:1" stroke-linecap="round" points="72.069,284.406 72.038,284.391 71.968,284.333 71.887,284.222 71.632,284.093 71.288,283.733 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.916; opacity:1" stroke-linecap="round" points="71.288,283.733 70.939,283.629 70.566,283.626 70.122,283.985 68.811,285.736 68.293,286.728 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.390; opacity:1" stroke-linecap="round" points="68.293,286.728 67.972,287.722 67.990,287.989 68.203,288.273 69.613,288.266 70.421,288.162 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.340; opacity:1" stroke-linecap="round" points="70.421,288.162 71.996,287.696 72.379,287.484 73.116,286.854 73.636,285.975 73.804,285.060 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.326; opacity:1" stroke-linecap="round" points="73.804,285.060 73.789,284.954 73.723,284.801 73.723,284.801 73.572,284.723 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.039; opacity:1" stroke-linecap="round" points="78.114,293.275 78.119,293.246 78.106,293.201 78.124,293.142 78.134,293.058 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.286; opacity:1" stroke-linecap="round" points="78.134,293.058 78.137,293.096 78.154,292.968 78.116,292.795 78.116,292.509 77.988,292.343 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.091; opacity:1" stroke-linecap="round" points="77.988,292.343 77.929,292.414 77.610,291.611 76.907,292.063 76.520,292.564 76.325,293.017 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.911; opacity:1" stroke-linecap="round" points="76.325,293.017 76.306,293.309 76.572,293.444 76.915,293.376 77.128,293.522 77.847,293.310 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.572; opacity:1" stroke-linecap="round" points="77.847,293.310 78.175,293.044 78.466,293.085 79.026,292.876 79.281,292.528 79.353,291.929 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.306; opacity:1" stroke-linecap="round" points="79.353,291.929 79.257,291.659 79.195,291.561 79.003,291.303 78.704,291.038 78.339,290.779 " />
+		</g>
+		</g>
+	</g>
+	<!-- Ink pool where the descending stem meets the header rule: spread
+	     horizontally so it reads like the pen pooled and the line bleeds out. -->
+	<!-- viewBox bottom (392.6) cuts through the pool's center on purpose, so the
+	     blob bleeds flush to the edge / the header rule. -->
+	<ellipse cx="70.5" cy="392.6" rx="7" ry="2.8" fill="currentColor" stroke="none"/>
+</svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            readme.dm
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmadisetti/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dmadisetti/blog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="/." class="md-tabs__link">
+          
+  
+  
+  blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="/tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="/about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  about
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="/." title="readme.dm" class="md-nav__button md-logo" aria-label="readme.dm" data-md-component="logo">
+      <svg class="md-logo-sig" viewBox="40.13 268.79 85.25 123.8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+	<g id="p1" style="display:inline">
+		<g id="CrdtId(0, 1)" transform="translate(0.0, 0.0)">
+		<g id="CrdtId(0, 11)" transform="translate(0.0, 0.0)">
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.052; opacity:1" stroke-linecap="round" points="65.163,323.505 65.156,323.319 65.184,322.465 65.268,321.336 65.593,319.353 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.270; opacity:1" stroke-linecap="round" points="65.593,319.353 65.707,318.917 66.198,317.426 66.618,316.608 67.048,316.033 67.441,315.764 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.920; opacity:1" stroke-linecap="round" points="67.441,315.764 67.795,315.691 68.149,315.830 68.357,316.037 68.940,317.013 69.217,318.091 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.227; opacity:1" stroke-linecap="round" points="69.217,318.091 69.357,319.267 69.370,321.880 69.234,324.272 69.016,326.934 68.547,331.350 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.199; opacity:1" stroke-linecap="round" points="68.547,331.350 68.114,336.289 67.602,344.555 67.539,349.095 67.574,350.538 67.732,352.996 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.242; opacity:1" stroke-linecap="round" points="67.732,352.996 68.070,356.269 68.223,357.173 68.759,360.060 68.933,361.116 69.005,361.981 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.889; opacity:1" stroke-linecap="round" points="69.005,361.981 68.731,363.687 68.545,364.333 68.441,364.620 68.226,365.138 68.025,365.670 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.151; opacity:1" stroke-linecap="round" points="68.025,365.670 67.925,365.944 67.925,365.944 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.043; opacity:1" stroke-linecap="round" points="61.199,279.954 61.206,280.145 61.177,280.224 60.946,280.512 60.941,280.383 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.219; opacity:1" stroke-linecap="round" points="60.941,280.383 60.987,280.248 61.006,280.241 61.020,280.186 61.036,280.184 61.042,280.054 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.403; opacity:1" stroke-linecap="round" points="61.042,280.054 61.116,280.155 61.163,279.803 61.238,279.644 61.343,279.684 61.599,279.041 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.902; opacity:1" stroke-linecap="round" points="61.599,279.041 61.810,278.802 61.937,278.819 62.342,278.359 62.981,278.380 63.206,278.246 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.902; opacity:1" stroke-linecap="round" points="63.206,278.246 63.846,278.332 64.641,278.051 64.917,278.154 65.047,278.522 65.094,278.426 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.759; opacity:1" stroke-linecap="round" points="65.094,278.426 65.184,278.551 65.465,281.498 65.241,281.553 65.131,281.758 64.708,281.683 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.092; opacity:1" stroke-linecap="round" points="64.708,281.683 63.814,281.957 62.035,281.739 61.773,281.818 60.718,281.474 60.392,281.212 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.280; opacity:1" stroke-linecap="round" points="60.392,281.212 60.343,281.023 60.434,280.780 61.238,279.322 61.578,279.117 62.778,277.457 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.734; opacity:1" stroke-linecap="round" points="62.778,277.457 63.110,277.267 63.315,276.986 63.441,276.866 63.454,276.805 63.480,276.790 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.174; opacity:1" stroke-linecap="round" points="63.480,276.790 63.517,276.808 63.540,276.845 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.171; opacity:1" stroke-linecap="round" points="53.646,329.914 53.619,329.911 53.418,329.871 52.974,329.798 52.351,329.715 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.900; opacity:1" stroke-linecap="round" points="52.351,329.715 51.752,329.595 49.993,329.178 49.216,329.122 48.577,328.754 48.385,328.334 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.434; opacity:1" stroke-linecap="round" points="48.385,328.334 48.307,328.371 48.134,328.162 48.157,327.910 48.342,327.154 48.397,327.218 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.431; opacity:1" stroke-linecap="round" points="48.397,327.218 49.012,326.702 49.187,326.463 50.698,324.926 52.876,323.741 55.153,322.701 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.391; opacity:1" stroke-linecap="round" points="55.153,322.701 56.834,322.025 60.697,320.781 66.406,319.677 71.428,319.400 72.788,319.410 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.364; opacity:1" stroke-linecap="round" points="72.788,319.410 76.900,319.702 79.639,320.019 85.247,320.970 92.356,323.100 95.260,324.117 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.215; opacity:1" stroke-linecap="round" points="95.260,324.117 100.971,325.892 102.362,326.143 103.704,326.565 109.840,329.269 112.907,330.879 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.046; opacity:1" stroke-linecap="round" points="112.907,330.879 114.496,331.844 115.807,332.762 116.693,333.726 117.238,334.695 117.385,335.616 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.282; opacity:1" stroke-linecap="round" points="117.385,335.616 117.135,336.439 116.487,337.218 115.413,337.926 113.947,338.679 110.056,340.042 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.324; opacity:1" stroke-linecap="round" points="110.056,340.042 108.912,340.270 106.402,340.987 103.620,341.686 100.789,342.380 99.391,342.755 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.211; opacity:1" stroke-linecap="round" points="99.391,342.755 92.239,344.066 90.810,344.069 89.385,344.279 87.948,344.765 75.951,347.574 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.370; opacity:1" stroke-linecap="round" points="75.951,347.574 68.623,349.044 64.620,349.683 61.162,350.083 58.315,350.309 56.695,350.584 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.409; opacity:1" stroke-linecap="round" points="56.695,350.584 56.040,350.549 54.058,350.345 53.360,349.969 53.065,350.049 51.949,349.972 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.271; opacity:1" stroke-linecap="round" points="51.949,349.972 51.604,350.069 51.500,350.019 51.406,350.017 51.334,350.028 51.331,349.968 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.225; opacity:1" stroke-linecap="round" points="51.331,349.968 51.331,349.968 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.032; opacity:1" stroke-linecap="round" points="70.222,286.661 70.069,286.796 69.792,286.632 69.680,286.789 69.451,286.538 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.147; opacity:1" stroke-linecap="round" points="69.451,286.538 69.238,286.648 69.195,286.726 69.047,286.750 69.015,286.715 68.957,286.750 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.369; opacity:1" stroke-linecap="round" points="68.957,286.750 68.908,286.713 68.948,286.680 68.960,286.371 69.418,285.206 70.008,284.755 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.558; opacity:1" stroke-linecap="round" points="70.008,284.755 71.308,284.868 71.949,285.142 72.634,285.714 73.061,286.421 73.026,286.755 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.725; opacity:1" stroke-linecap="round" points="73.026,286.755 71.554,287.946 70.592,288.262 69.964,288.290 69.488,288.186 69.212,287.828 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.367; opacity:1" stroke-linecap="round" points="69.212,287.828 69.199,287.179 69.242,286.804 69.319,286.404 69.430,286.047 69.553,285.344 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.079; opacity:1" stroke-linecap="round" points="69.553,285.344 69.750,284.808 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.090; opacity:1" stroke-linecap="round" points="57.941,361.750 57.919,361.757 57.782,361.780 57.512,361.812 56.778,361.945 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.245; opacity:1" stroke-linecap="round" points="56.778,361.945 56.429,362.026 55.903,362.327 55.730,362.319 55.143,362.627 54.801,362.957 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.243; opacity:1" stroke-linecap="round" points="54.801,362.957 54.726,363.165 54.701,363.073 54.777,362.881 54.759,362.778 55.019,362.837 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.741; opacity:1" stroke-linecap="round" points="55.019,362.837 55.072,362.950 55.279,362.773 55.945,362.727 58.110,362.200 58.603,362.114 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.229; opacity:1" stroke-linecap="round" points="58.603,362.114 59.157,362.106 62.629,361.708 65.094,361.553 70.798,361.502 75.137,361.323 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.227; opacity:1" stroke-linecap="round" points="75.137,361.323 79.306,361.329 81.220,361.458 83.016,361.387 85.355,361.402 86.744,361.343 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.720; opacity:1" stroke-linecap="round" points="86.744,361.343 87.352,361.363 88.892,361.316 89.695,361.382 90.788,361.373 90.858,361.261 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.288; opacity:1" stroke-linecap="round" points="90.858,361.261 90.735,361.445 90.379,361.591 89.999,361.633 89.545,361.736 88.985,361.901 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.554; opacity:1" stroke-linecap="round" points="88.985,361.901 88.634,361.908 88.318,362.030 84.309,363.738 82.591,364.561 78.360,366.016 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.869; opacity:1" stroke-linecap="round" points="78.360,366.016 74.163,367.273 69.813,368.212 67.198,368.579 63.795,369.265 61.786,369.161 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.434; opacity:1" stroke-linecap="round" points="61.786,369.161 61.252,368.989 61.167,368.823 61.369,368.593 62.250,368.381 62.861,368.008 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.265; opacity:1" stroke-linecap="round" points="62.861,368.008 63.298,367.882 63.783,367.925 64.138,368.117 64.360,368.297 64.545,368.612 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.306; opacity:1" stroke-linecap="round" points="64.545,368.612 64.624,368.892 64.873,369.389 64.986,369.788 65.120,369.994 65.473,371.399 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.241; opacity:1" stroke-linecap="round" points="65.473,371.399 65.820,372.228 65.964,372.258 66.205,372.588 66.282,372.647 66.563,372.811 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.551; opacity:1" stroke-linecap="round" points="66.563,372.811 66.871,373.127 67.178,373.585 67.502,374.312 67.991,376.616 68.279,378.745 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.391; opacity:1" stroke-linecap="round" points="68.279,378.745 68.990,385.132 69.538,388.396 70.331,391.924 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.569; opacity:1" stroke-linecap="round" points=""/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.189; opacity:1" stroke-linecap="round" points="" />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.032; opacity:1" stroke-linecap="round" points="75.258,292.982 75.234,292.565 75.181,292.469 75.121,292.519 75.164,292.639 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.230; opacity:1" stroke-linecap="round" points="75.164,292.639 76.227,291.593 76.693,291.419 77.426,291.867 77.618,291.820 78.423,292.599 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.245; opacity:1" stroke-linecap="round" points="78.423,292.599 78.335,292.988 77.632,293.570 77.019,293.913 76.361,294.082 76.141,293.986 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.554; opacity:1" stroke-linecap="round" points="76.141,293.986 75.617,294.306 75.586,293.962 75.597,293.989 75.631,293.912 75.658,293.862 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.176; opacity:1" stroke-linecap="round" points="75.658,293.862 75.671,293.884 75.699,293.797 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.043; opacity:1" stroke-linecap="round" points="68.605,341.268 68.601,341.258 68.559,341.069 68.534,340.867 68.524,340.290 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.228; opacity:1" stroke-linecap="round" points="68.524,340.290 68.574,340.102 68.609,339.673 68.696,339.214 68.756,338.571 68.768,338.364 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.902; opacity:1" stroke-linecap="round" points="68.768,338.364 68.855,337.621 68.897,336.835 68.865,336.551 68.727,337.241 68.258,338.673 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.404; opacity:1" stroke-linecap="round" points="68.258,338.673 68.159,339.324 68.064,339.989 67.955,341.260 67.970,344.326 68.163,345.397 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.407; opacity:1" stroke-linecap="round" points="68.163,345.397 68.634,346.747 69.111,347.598 69.382,347.928 70.318,348.622 71.034,348.895 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.274; opacity:1" stroke-linecap="round" points="71.034,348.895 72.422,349.048 73.569,348.842 74.360,348.494 75.507,347.767 76.660,345.998 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.233; opacity:1" stroke-linecap="round" points="76.660,345.998 76.852,345.452 78.288,342.899 78.870,341.666 79.571,339.731 79.740,339.502 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.249; opacity:1" stroke-linecap="round" points="79.740,339.502 80.551,337.613 80.832,336.722 80.924,336.026 80.514,336.710 80.347,337.433 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.263; opacity:1" stroke-linecap="round" points="80.347,337.433 80.122,338.623 79.832,341.182 79.506,346.030 79.490,346.889 79.447,349.049 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.242; opacity:1" stroke-linecap="round" points="79.447,349.049 79.553,354.621 79.708,358.007 79.738,359.743 79.665,360.673 79.528,361.532 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.234; opacity:1" stroke-linecap="round" points="79.528,361.532 79.528,361.532 79.339,362.182 79.213,362.435 79.063,362.705 78.928,363.016 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.072; opacity:1" stroke-linecap="round" points="79.338,359.563 79.348,359.563 79.354,359.563 79.360,359.555 79.355,359.524 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.372; opacity:1" stroke-linecap="round" points="79.355,359.524 79.317,359.437 79.283,359.410 79.284,359.151 79.488,357.741 79.610,356.494 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.229; opacity:1" stroke-linecap="round" points="79.610,356.494 80.170,352.284 80.653,349.883 81.352,347.398 83.417,342.168 84.931,338.924 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.235; opacity:1" stroke-linecap="round" points="84.931,338.924 86.356,336.321 87.169,335.169 87.660,334.638 87.889,334.651 87.954,334.960 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.105; opacity:1" stroke-linecap="round" points="87.954,334.960 87.805,335.607 87.691,336.555 87.563,337.347 86.859,341.478 86.478,344.968 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.253; opacity:1" stroke-linecap="round" points="86.478,344.968 86.586,347.142 87.076,348.777 87.015,348.432 87.062,348.243 87.490,347.441 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.740; opacity:1" stroke-linecap="round" points="87.490,347.441 88.453,345.180 90.309,340.249 91.329,337.729 92.497,335.171 93.557,333.165 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.885; opacity:1" stroke-linecap="round" points="93.557,333.165 94.451,331.558 95.260,330.373 95.314,330.366 95.328,330.549 94.834,331.670 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.089; opacity:1" stroke-linecap="round" points="94.834,331.670 94.689,332.293 94.307,334.992 94.164,336.324 94.121,339.161 94.516,341.428 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.247; opacity:1" stroke-linecap="round" points="94.516,341.428 95.443,343.836 96.366,345.371 97.086,346.072 97.314,346.433 97.888,346.782 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.251; opacity:1" stroke-linecap="round" points="97.888,346.782 98.142,346.810 98.661,347.201 98.919,347.245 98.919,347.245 99.169,347.147 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.156; opacity:1" stroke-linecap="round" points="99.169,347.147 99.169,347.147 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.059; opacity:1" stroke-linecap="round" points="57.838,312.118 57.717,312.118 57.514,312.119 56.945,312.091 56.460,312.005 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.394; opacity:1" stroke-linecap="round" points="56.460,312.005 56.080,312.004 55.635,311.947 55.244,311.825 54.968,311.696 54.847,311.451 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.436; opacity:1" stroke-linecap="round" points="54.847,311.451 54.927,311.255 55.039,311.206 55.064,311.304 55.154,311.289 56.229,310.699 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.418; opacity:1" stroke-linecap="round" points="56.229,310.699 57.659,309.761 59.941,308.744 62.182,307.867 64.575,307.167 66.255,306.777 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.400; opacity:1" stroke-linecap="round" points="66.255,306.777 68.753,306.446 72.817,306.462 75.015,306.644 77.363,306.789 78.203,306.778 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.912; opacity:1" stroke-linecap="round" points="78.203,306.778 79.006,306.820 79.304,306.812 78.038,306.708 76.484,306.814 71.894,307.614 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.531; opacity:1" stroke-linecap="round" points="71.894,307.614 67.255,307.895 64.734,307.889 60.305,307.699 59.416,307.596 57.536,307.503 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.920; opacity:1" stroke-linecap="round" points="57.536,307.503 56.507,307.414 55.640,307.403 55.557,307.255 55.453,307.601 55.331,307.487 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.253; opacity:1" stroke-linecap="round" points="55.331,307.487 55.317,307.575 55.231,307.610 54.989,307.945 54.910,307.995 54.822,308.190 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.331; opacity:1" stroke-linecap="round" points="54.822,308.190 54.650,308.414 54.383,308.813 54.286,308.979 54.034,309.163 53.829,309.222 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.185; opacity:1" stroke-linecap="round" points="53.829,309.222 53.819,309.273 53.924,308.995 54.072,309.039 54.068,308.860 54.083,308.980 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.358; opacity:1" stroke-linecap="round" points="54.083,308.980 54.039,309.078 53.987,309.071 53.965,309.216 54.095,309.033 54.120,309.180 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.743; opacity:1" stroke-linecap="round" points="54.120,309.180 54.239,309.197 54.326,308.917 54.323,309.272 54.280,309.137 54.363,308.797 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.258; opacity:1" stroke-linecap="round" points="54.363,308.797 54.630,308.109 56.271,304.918 57.930,301.257 62.105,291.178 62.670,289.326 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.096; opacity:1" stroke-linecap="round" points="62.670,289.326 62.794,288.677 62.717,288.688 62.317,289.731 61.957,291.843 61.656,294.039 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.893; opacity:1" stroke-linecap="round" points="61.656,294.039 61.547,296.277 61.591,297.284 61.894,299.176 62.289,300.319 62.767,301.090 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.905; opacity:1" stroke-linecap="round" points="62.767,301.090 63.125,301.389 64.507,301.569 65.061,301.199 66.454,299.824 67.515,298.533 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.923; opacity:1" stroke-linecap="round" points="67.515,298.533 68.738,296.522 69.536,294.817 69.963,293.454 69.674,294.353 69.562,295.911 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.242; opacity:1" stroke-linecap="round" points="69.562,295.911 69.654,296.847 70.023,298.250 70.517,298.937 71.227,299.579 72.374,299.877 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.078; opacity:1" stroke-linecap="round" points="72.374,299.877 73.996,299.774 74.461,299.641 75.481,299.054 76.421,298.173 76.686,298.040 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.929; opacity:1" stroke-linecap="round" points="76.686,298.040 76.744,298.820 76.693,300.310 76.679,301.287 76.673,302.545 76.675,302.850 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.281; opacity:1" stroke-linecap="round" points="76.675,302.850 76.678,303.178 76.678,303.178 76.678,303.178 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.061; opacity:1" stroke-linecap="round" points="59.190,281.054 59.150,280.999 58.998,280.745 58.908,280.556 58.910,280.459 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.300; opacity:1" stroke-linecap="round" points="58.910,280.459 59.343,279.472 60.200,279.016 61.638,278.041 62.473,277.731 62.806,277.831 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.295; opacity:1" stroke-linecap="round" points="62.806,277.831 63.268,277.698 63.777,277.707 64.619,278.044 65.166,278.568 66.279,280.368 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.336; opacity:1" stroke-linecap="round" points="66.279,280.368 66.331,280.296 66.269,280.112 66.158,280.025 66.103,280.127 65.339,279.848 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.578; opacity:1" stroke-linecap="round" points="65.339,279.848 62.690,280.131 62.552,280.163 62.347,280.250 62.287,280.290 62.287,280.290 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.122; opacity:1" stroke-linecap="round" points="62.287,280.290 62.237,280.380 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.030; opacity:1" stroke-linecap="round" points="70.938,284.325 71.387,283.960 71.892,284.021 72.325,284.198 72.349,284.327 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.180; opacity:1" stroke-linecap="round" points="72.349,284.327 72.274,284.408 72.219,284.396 72.145,284.398 72.119,284.386 72.069,284.406 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.407; opacity:1" stroke-linecap="round" points="72.069,284.406 72.038,284.391 71.968,284.333 71.887,284.222 71.632,284.093 71.288,283.733 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.916; opacity:1" stroke-linecap="round" points="71.288,283.733 70.939,283.629 70.566,283.626 70.122,283.985 68.811,285.736 68.293,286.728 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.390; opacity:1" stroke-linecap="round" points="68.293,286.728 67.972,287.722 67.990,287.989 68.203,288.273 69.613,288.266 70.421,288.162 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.340; opacity:1" stroke-linecap="round" points="70.421,288.162 71.996,287.696 72.379,287.484 73.116,286.854 73.636,285.975 73.804,285.060 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.326; opacity:1" stroke-linecap="round" points="73.804,285.060 73.789,284.954 73.723,284.801 73.723,284.801 73.572,284.723 " />
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.039; opacity:1" stroke-linecap="round" points="78.114,293.275 78.119,293.246 78.106,293.201 78.124,293.142 78.134,293.058 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.286; opacity:1" stroke-linecap="round" points="78.134,293.058 78.137,293.096 78.154,292.968 78.116,292.795 78.116,292.509 77.988,292.343 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:3.091; opacity:1" stroke-linecap="round" points="77.988,292.343 77.929,292.414 77.610,291.611 76.907,292.063 76.520,292.564 76.325,293.017 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.911; opacity:1" stroke-linecap="round" points="76.325,293.017 76.306,293.309 76.572,293.444 76.915,293.376 77.128,293.522 77.847,293.310 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.572; opacity:1" stroke-linecap="round" points="77.847,293.310 78.175,293.044 78.466,293.085 79.026,292.876 79.281,292.528 79.353,291.929 "/>
+			<polyline style="fill:none; stroke:currentColor; stroke-width:2.306; opacity:1" stroke-linecap="round" points="79.353,291.929 79.257,291.659 79.195,291.561 79.003,291.303 78.704,291.038 78.339,290.779 " />
+		</g>
+		</g>
+	</g>
+	<!-- Ink pool where the descending stem meets the header rule: spread
+	     horizontally so it reads like the pen pooled and the line bleeds out. -->
+	<!-- viewBox bottom (392.6) cuts through the pool's center on purpose, so the
+	     blob bleeds flush to the edge / the header rule. -->
+	<ellipse cx="70.5" cy="392.6" rx="7" ry="2.8" fill="currentColor" stroke="none"/>
+</svg>
+    </a>
+    readme.dm
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmadisetti/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dmadisetti/blog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="/." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    readme.dm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="/archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    about
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  <h1>404 - Not found</h1>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/dmadisetti" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "/", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tooltips"], "search": "/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="/assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="/javascripts/vim-navigation.js"></script>
+      
+        <script src="/javascripts/marimo-theme.js"></script>
+      
+        <script src="/javascripts/dm-underline.js"></script>
+      
+    
+  </body>
+</html>
