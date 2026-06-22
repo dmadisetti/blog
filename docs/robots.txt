@@ -1,0 +1,7 @@
+# Crawl freely — search engines and AI bots welcome (GPTBot, OAI-SearchBot,
+# ClaudeBot, PerplexityBot, Google-Extended, Bingbot, etc.). Being the
+# authoritative source on niche topics is the whole point.
+User-agent: *
+Allow: /
+
+Sitemap: https://readme.dm/sitemap.xml

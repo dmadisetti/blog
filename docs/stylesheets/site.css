@@ -137,3 +137,41 @@
 .md-post--excerpt:first-of-type {
   margin-top: 3.5rem;
 }
+
+/* --- Image blocks: <figure markdown="span"> … <figcaption> --------------- */
+/* A full body-width contrast band frames the (often small) image: the tinted
+   bars either side of the centered image take up the body width, so a 300px
+   photo reads as intentional instead of lost. Cleared of any floats. */
+.md-typeset figure {
+  clear: both;
+  width: 100%;
+  margin: 1.9rem 0;
+  padding: 1.75rem 1rem;
+  background: color-mix(in srgb, var(--md-default-fg-color) 6%, transparent);
+  border-radius: 4px;
+  text-align: center;
+}
+.md-typeset figure > img,
+.md-typeset figure > p > img {
+  display: inline-block;
+  max-width: 100%;
+  max-height: 24rem;
+  height: auto;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+  background: var(--md-default-bg-color); /* transparent PNGs sit on page bg, not the band */
+}
+.md-typeset figure > figcaption {
+  margin: 0.9rem auto 0;
+  max-width: 34rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  text-align: center;
+}
+.md-typeset figure > figcaption a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}

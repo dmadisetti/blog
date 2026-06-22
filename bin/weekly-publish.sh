@@ -12,6 +12,14 @@ QUEUE="$BLOG/_queue/scheduled"
 POSTS="$BLOG/docs/posts"
 DRY="${DRY_RUN:-0}"
 log(){ printf '[blog-publish %s] %s\n' "$(date -Is)" "$*"; }
+
+# True if the post is math/physics-tagged — the ONLY content Mathstodon (a topic
+# instance) should receive; general posts are off-audience there. Scans the
+# frontmatter `tags:` block only (sed+grep; no awk — not on the systemd PATH).
+is_math(){
+  sed -nE '/^tags:[[:space:]]*$/,/^(---|[A-Za-z_])/p' "$1" \
+    | grep -qiE '^[[:space:]]*-[[:space:]]*(mathematics|physics|math)([[:space:]]|$)'
+}
 cd "$BLOG"
 
 week_start="$(date -d 'monday this week' +%F)"
@@ -19,6 +27,7 @@ week_start="$(date -d 'monday this week' +%F)"
 # 1) Already published this week? (any post dated >= this Monday)
 for f in "$POSTS"/*.md; do
   [ -e "$f" ] || continue
+  case "$(basename "$f")" in queued.*) continue ;; esac   # skip gitignored queue-preview mirrors
   d="$(sed -nE 's/^date:[[:space:]]*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/\1/p' "$f" | head -n1)"
   [ -n "$d" ] || continue
   if ! [[ "$d" < "$week_start" ]]; then        # d >= week_start  → published this week
@@ -97,9 +106,12 @@ if [ "${ANNOUNCE:-0}" = "1" ]; then
   url="${base%/}/${slug%.md}/"
   title="$(sed -nE 's/^title:[[:space:]]*(.+)$/\1/p' "$dest" | head -n1)"
   [ -n "$title" ] || title="${slug%.md}"
+  # Bluesky always; add Mathstodon ONLY for math/physics-tagged posts (topic
+  # instance etiquette — see is_math / the channel strategy).
+  if is_math "$dest"; then target="both"; else target="bluesky"; fi
   if command -v uv >/dev/null 2>&1; then
-    if (cd "$BLOG" && uv run --group publish python bin/syndicate.py both "New post: ${title}" --link "$url"); then
-      log "announced to bluesky + mathstodon ($url)"
+    if (cd "$BLOG" && uv run --group publish python bin/syndicate.py "$target" "New post: ${title}" --link "$url"); then
+      log "announced to ${target} ($url)"
     else
       log "announce failed (post is still live) — syndicate manually if needed."
     fi

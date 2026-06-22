@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+<!-- Open Graph / Twitter card meta. Material doesn't emit these without the
+     (imaging-dependent) social plugin, so we set them by hand from each page's
+     front matter, falling back to site-level values. Absolute URLs are built
+     from site_url, so they auto-correct when the custom domain lands. -->
+{% block extrahead %}
+  {{ super() }}
+  {%- set _title = (page.title ~ " · " ~ config.site_name) if page and page.title and page.title != config.site_name else config.site_name -%}
+  {%- set _desc = (page.meta.description if page and page.meta and page.meta.description else config.site_description) -%}
+  {%- set _url = page.canonical_url if page and page.canonical_url else config.site_url -%}
+  <meta property="og:type" content="{{ 'article' if page and page.meta and page.meta.date else 'website' }}">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ _title }}">
+  <meta property="og:description" content="{{ _desc }}">
+  <meta property="og:url" content="{{ _url }}">
+  <meta name="twitter:title" content="{{ _title }}">
+  <meta name="twitter:description" content="{{ _desc }}">
+  {%- if page and page.meta and page.meta.image %}
+  {%- set _img = (config.site_url | trim('/')) ~ "/" ~ (page.meta.image | trim('/')) %}
+  <meta property="og:image" content="{{ _img }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ _img }}">
+  {%- else %}
+  <meta name="twitter:card" content="summary">
+  {%- endif %}
+{% endblock %}
