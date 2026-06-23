@@ -111,6 +111,10 @@
   color: var(--md-default-fg-color--light);
   font-size: 0.8rem;
 }
+.post-extras .license p {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.72rem;
+}
 .subscribe__frame {
   display: block;
   max-width: 480px;

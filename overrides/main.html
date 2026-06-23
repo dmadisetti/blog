@@ -26,4 +26,37 @@
   {%- else %}
   <meta name="twitter:card" content="summary">
   {%- endif %}
+
+  {#- JSON-LD: BlogPosting + author Person (sameAs links disambiguate the
+      "Dylan Madisetti" entity). Lets search + AI engines attribute and cite the
+      post, and machine-reads the license. Posts only (they carry a date). -#}
+  {%- if page and page.meta and page.meta.date %}
+  {%- set _cc = {
+    "CC-BY-4.0": "https://creativecommons.org/licenses/by/4.0/",
+    "CC-BY-ND-4.0": "https://creativecommons.org/licenses/by-nd/4.0/",
+    "CC-BY-NC-ND-4.0": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/"
+  } -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ (page.title or config.site_name) | tojson }},
+    "description": {{ _desc | tojson }},
+    "datePublished": {{ (page.meta.date | string) | tojson }},
+    "url": {{ _url | tojson }},
+    "mainEntityOfPage": {{ _url | tojson }},
+    "inLanguage": "en",
+    {% if page.meta.image %}"image": {{ ((config.site_url | trim('/')) ~ "/" ~ (page.meta.image | trim('/'))) | tojson }},{% endif %}
+    {% if page.meta.license and _cc.get(page.meta.license) %}"license": {{ _cc.get(page.meta.license) | tojson }},{% endif %}
+    "author": {
+      "@type": "Person",
+      "name": "Dylan Madisetti",
+      "url": {{ config.site_url | tojson }},
+      "sameAs": ["https://github.com/dmadisetti", "https://orcid.org/0000-0003-1269-4989"]
+    },
+    "publisher": { "@type": "Person", "name": "Dylan Madisetti", "url": {{ config.site_url | tojson }} }
+  }
+  </script>
+  {%- endif %}
 {% endblock %}

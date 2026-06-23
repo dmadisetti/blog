@@ -57,5 +57,18 @@
             title="Subscribe to dmadisetti on Substack"></iframe>
   </section>
 
+  {% if page.meta.license %}
+  {%- set _licmap = {
+    "CC-BY-4.0": ["CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/", ""],
+    "CC-BY-ND-4.0": ["CC BY-ND 4.0", "https://creativecommons.org/licenses/by-nd/4.0/", " — for adaptations or translations, contact the author"],
+    "CC-BY-NC-ND-4.0": ["CC BY-NC-ND 4.0", "https://creativecommons.org/licenses/by-nc-nd/4.0/", " — non-commercial; for adaptations, contact the author"],
+    "CC-BY-SA-4.0": ["CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0/", ""]
+  } -%}
+  {%- set _l = _licmap.get(page.meta.license, [page.meta.license, "", ""]) -%}
+  <section class="license">
+    <p>Words licensed {% if _l[1] %}<a href="{{ _l[1] }}" rel="license">{{ _l[0] }}</a>{% else %}{{ _l[0] }}{% endif %}{{ _l[2] }}. Code samples are Apache-2.0.</p>
+  </section>
+  {% endif %}
+
 </div>
 {% endif %}
