@@ -22,16 +22,21 @@ is_math(){
 }
 cd "$BLOG"
 
-week_start="$(date -d 'monday this week' +%F)"
+# Rolling 7-day window instead of week-boundary math. The old
+# `date -d 'monday this week'` resolved to the *upcoming* Monday (on Tue
+# 2026-06-23 it returned 2026-06-29), so a post published earlier the same week
+# looked "before this week" and the net fired anyway (that's how rowdybot shipped
+# a day after fathers_day). "Anything in the last 7 days?" has no weekday edges.
+cutoff="$(date -d '-7 days' +%F)"
 
-# 1) Already published this week? (any post dated >= this Monday)
+# 1) Already published recently? (any post dated within the last 7 days)
 for f in "$POSTS"/*.md; do
   [ -e "$f" ] || continue
   case "$(basename "$f")" in queued.*) continue ;; esac   # skip gitignored queue-preview mirrors
   d="$(sed -nE 's/^date:[[:space:]]*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/\1/p' "$f" | head -n1)"
   [ -n "$d" ] || continue
-  if ! [[ "$d" < "$week_start" ]]; then        # d >= week_start  → published this week
-    log "already published this week ($(basename "$f"), $d) — no-op."
+  if [[ "$cutoff" < "$d" ]]; then              # d > cutoff → published within the last 7 days
+    log "already published in the last 7 days ($(basename "$f"), $d) — no-op."
     exit 0
   fi
 done
