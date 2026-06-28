@@ -49,6 +49,9 @@ result-*
 # posts only move into docs/blog/posts/ when they go live.
 _queue/
 
+# Probe scripts + longitudinal run dumps; NOT committed until launch.
+experiments/
+
 # Old working backups + archive (contains personal journals + half-baked drafts).
 # Local-only; pull keepers into _queue/ when triaged, don't publish wholesale.
 backup/
