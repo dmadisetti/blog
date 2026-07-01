@@ -1,7 +1,7 @@
 ---
 title: Please do not touch
 description: When has a please ever stopped you?
-image: assets/curtain.jpg
+image: assets/please-do-not-touch_og.png
 date: 2026-06-30
 slug: please-do-not-touch
 license: CC-BY-4.0

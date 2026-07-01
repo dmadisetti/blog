@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -49,23 +50,83 @@ def _read_secret(env_name: str, agenix_path: str) -> str:
     )
 
 
+def _http_get(url: str, *, limit: int | None = None) -> bytes:
+    """Fetch a URL over httpx (bundles CA certs; atproto already pulls it in;
+    stdlib urllib has no CA bundle under the uv-managed CPython)."""
+    import httpx
+
+    r = httpx.get(
+        url,
+        headers={"User-Agent": "readme.dm-syndicate"},
+        timeout=15,
+        follow_redirects=True,
+    )
+    r.raise_for_status()
+    return r.content[:limit] if limit else r.content
+
+
+def _fetch_og(url: str) -> dict[str, str]:
+    """Best-effort scrape of og:title / og:description / og:image from HTML.
+
+    Handles either attribute order (property-then-content or the reverse).
+    Returns whatever it finds; missing keys just fall back at the call site.
+    """
+    html_text = _http_get(url, limit=200_000).decode("utf-8", "replace")
+    og: dict[str, str] = {}
+    for prop in ("title", "description", "image"):
+        m = re.search(
+            rf'<meta[^>]+property=["\']og:{prop}["\'][^>]+content=["\']([^"\']*)["\']',
+            html_text,
+            re.I,
+        ) or re.search(
+            rf'<meta[^>]+content=["\']([^"\']*)["\'][^>]+property=["\']og:{prop}["\']',
+            html_text,
+            re.I,
+        )
+        if m:
+            og[prop] = m.group(1)
+    return og
+
+
 def post_bluesky(text: str, link: str | None, *, dry_run: bool) -> str:
     identifier = os.environ.get("BLUESKY_IDENTIFIER", _DEFAULT_DID)
     if dry_run:
         return f"[dry-run] bluesky as {identifier}: {text!r}" + (
-            f" +link {link}" if link else ""
+            f" +card {link}" if link else ""
         )
-    from atproto import Client, client_utils
+    from atproto import Client, models
 
     password = _read_secret("BLUESKY_APP_PASSWORD", "/run/agenix/bsky-key")
     client = Client()
     client.login(identifier, password)
-    if link:
-        body = client_utils.TextBuilder().text(f"{text}\n\n").link(link, link)
-        post = client.send_post(body)
-    else:
-        post = client.send_post(text)
-    return post.uri
+
+    if not link:
+        return client.send_post(text).uri
+
+    # Build an external embed ("link card") so the post renders the OG title,
+    # description and image — not just a bare clickable URL.
+    og = {}
+    try:
+        og = _fetch_og(link)
+    except Exception as e:  # noqa: BLE001 — card is best-effort, never fatal
+        print(f"warning: could not read OG tags from {link}: {e}", file=sys.stderr)
+
+    thumb = None
+    if og.get("image"):
+        try:
+            thumb = client.upload_blob(_http_get(og["image"])).blob
+        except Exception as e:  # noqa: BLE001 — Bluesky caps blobs ~1MB
+            print(f"warning: could not attach card image: {e}", file=sys.stderr)
+
+    embed = models.AppBskyEmbedExternal.Main(
+        external=models.AppBskyEmbedExternal.External(
+            uri=link,
+            title=og.get("title") or link,
+            description=og.get("description") or "",
+            thumb=thumb,
+        )
+    )
+    return client.send_post(text=text, embed=embed).uri
 
 
 def post_mastodon(text: str, lang: str | None, *, dry_run: bool) -> str:
@@ -86,7 +147,7 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="Syndicate a post to Bluesky / Mathstodon.")
     ap.add_argument("target", choices=["bluesky", "mastodon", "both"])
     ap.add_argument("text")
-    ap.add_argument("--link", help="URL to append as a rich-text link (Bluesky).")
+    ap.add_argument("--link", help="URL to attach as a link card / external embed (Bluesky).")
     ap.add_argument("--lang", help="BCP-47 language tag for the Mastodon post.")
     ap.add_argument("--dry-run", action="store_true", help="Print, don't post.")
     args = ap.parse_args(argv)
