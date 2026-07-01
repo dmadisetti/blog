@@ -1,6 +1,6 @@
 ---
 title: Please do not touch
-description: When has a please ever stopped you?
+description: When has a please stopped you?
 image: assets/please-do-not-touch_og.png
 date: 2026-06-30
 slug: please-do-not-touch
