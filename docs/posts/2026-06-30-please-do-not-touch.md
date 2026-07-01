@@ -35,7 +35,7 @@ Bechtler Museum of Modern Art
 </figure>
 
 <details class="curtain__didactic" markdown="1">
-<summary id="silence-secrets">Gallery didactic — <em>Silence</em>, Hannele Ollakka</summary>
+<summary>Gallery didactic — <em>Silence</em>, Hannele Ollakka</summary>
 
 > Hannele Ollakka's ethereal paintings on silk gauze explore memory and the boundaries between presence and absence. In _Silence_, the faint, life-size figure of a child and hovering head of a woman emerge through layers of transparent fabric, appearing almost suspended between visibility and disappearance. The monumental scale of the work gives the figures a haunting physical presence, while the delicate material softens and obscures their forms, inviting introspection and sustained looking. Rather than presenting fixed portraits, Ollakka's ghostly rendering creates an atmosphere of ambiguity, suggesting the fragile and fleeting nature of memory.
 >
@@ -50,7 +50,7 @@ It's provocative.
 My immediate intrusive thought was "to pull back the curtain".
 Living in a connected world, most immediately pressing curiosities can be rectified with a Google or chatbot question.
 The pervasive thought was made even stronger by the fact I had immediate agency over the situation.
-Obviously, I did not touch the curtain (tragedy of the commons and the friendly **Please do not touch sign**), but I did nearly flatten myself against the wall trying to [glean its secrets](#silence-secrets).
+Obviously, I did not touch the curtain (tragedy of the commons and the friendly **Please do not touch sign**), but I did nearly flatten myself against the wall trying to [glean its secrets][Is it tempera? are are they figured detailed or just blobs?]
 I didn't see any.[^menace]
 
 As I walked away, wistful from my museum visit, I came up with a parallel for the _information tease_ feeling.
