@@ -59,4 +59,23 @@
   }
   </script>
   {%- endif %}
+
+  {#- Per-post assets: scoped to a single page via its front-matter
+      `extra_css` / `extra_javascript`, so a post's styles/behaviour ship only
+      on that page instead of site-wide (or inlined into the body). Paths are
+      doc-root-relative, e.g. `stylesheets/posts/<slug>.css`. -#}
+  {%- if page and page.meta and page.meta.extra_css %}
+  {%- for css in page.meta.extra_css %}
+  <link rel="stylesheet" href="{{ css | url }}">
+  {%- endfor %}
+  {%- endif %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {%- if page and page.meta and page.meta.extra_javascript %}
+  {%- for js in page.meta.extra_javascript %}
+  <script src="{{ js | url }}"></script>
+  {%- endfor %}
+  {%- endif %}
 {% endblock %}
