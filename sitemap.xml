@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://readme.dm/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/about/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/tags/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/hello-dylan/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/project-setti/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/rowdybot/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/please-do-not-touch/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/reverse-engineering-web-exploits/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/parsing-the-internets-secrets/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/friendship-paradox/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
+    </url>
+    <url>
+         <loc>https://readme.dm/monix-one-file-zero-setup/</loc>
+         <lastmod>2026-07-28</lastmod>
     </url>
     <url>
          <loc>https://readme.dm/archive/2026/</loc>
-         <lastmod>2026-07-21</lastmod>
+         <lastmod>2026-07-28</lastmod>
     </url>
 </urlset>
