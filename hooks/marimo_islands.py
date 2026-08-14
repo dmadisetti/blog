@@ -28,12 +28,14 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import io
 import json
 import logging
 import os
 import re
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 log = logging.getLogger("mkdocs.plugins.marimo_islands")
 
@@ -82,6 +84,9 @@ _FONT_LINK_RE = re.compile(
 # Per-page bundles, keyed by source uri, populated in on_page_markdown and
 # consumed in on_page_content within the same build.
 _bundles: dict[str, dict[str, Any]] = {}
+# Pages whose cells wrote a cache, as {page url: notebook path}. Copied into the
+# built site in on_post_build, once mkdocs has finished writing the pages.
+_cached_pages: dict[str, str] = {}
 
 
 def _replace_fences(markdown: str) -> tuple[str, int]:
@@ -113,19 +118,66 @@ def _clean_head(head: str) -> str:
     return _FONT_LINK_RE.sub("", head)
 
 
-def _build_bundle(src_path: str, mode: str) -> dict[str, Any] | None:
+def _notebook_path(src_path: str) -> Path:
+    """Stable notebook path handed to the kernel for a page's cells.
+
+    Deliberately not the page's own source: a queued post is a transient mirror
+    under `docs/`, so caching beside it would publish the blobs and lose them on
+    the next mirror sweep. Keyed by file name, so the cache survives edits.
+    """
+    return _CACHE_DIR / "nb" / Path(src_path).name
+
+
+def _bundle_cache(nb_path: Path, out_dir: Path) -> None:
+    """Copy this notebook's cached cell values into `<out_dir>/public/cache/`.
+
+    Same call `marimo export html-wasm --execute` makes, pointed at the page's
+    directory in the built site: that is where the browser runtime looks
+    (`notebook_location()/public/cache/`). Without it a cached cell has nothing
+    to hydrate from and re-runs in WebAssembly.
+    """
+    try:
+        from marimo._export.file import bundle_cache_export
+        from marimo._export.requests import CacheBundleRequest
+        from marimo._utils.marimo_path import MarimoPath
+
+        bundle_cache_export(
+            CacheBundleRequest(
+                notebook_path=MarimoPath(str(nb_path)),
+                output_directory=out_dir,
+                stdout=io.StringIO(),  # "Bundled N cache files" is not ours to print
+            )
+        )
+    except Exception:
+        log.warning("marimo: cache bundling failed for %s", nb_path, exc_info=True)
+
+
+def _page_base_url(config: Any, page: Any) -> str:
+    """Absolute path (no origin) at which this page will be served.
+
+    The browser kernel needs it to find `public/cache/`; it cannot work it out
+    itself (see `_WASM_LOCATION_SHIM`). `site_url`'s path carries any subpath
+    the site is deployed under — empty here, but not for a project Pages site.
+    """
+    prefix = urlsplit(str(config.get("site_url") or "")).path
+    return "/" + f"{prefix}/{page.url}".strip("/")
+
+
+def _build_bundle(src_path: str, mode: str, base_url: str) -> dict[str, Any] | None:
     """Build islands for a source file, with an on-disk content-hash cache."""
     source = Path(src_path).read_bytes()
     execute, reactive = _MODE_KWARGS.get(mode, _MODE_KWARGS[_DEFAULT_MODE])
     display_code = os.environ.get("MARIMO_ISLANDS_SHOW_CODE") == "1"
 
     # Cache key folds in everything that changes the output: source bytes, the
-    # render tier, code visibility, and the engine/marimo version.
+    # render tier, code visibility, the page's own URL (baked into the payload
+    # so the browser can find the cache), and the engine/marimo version.
     key_material = b"\0".join(
         [
             source,
             mode.encode(),
             b"1" if display_code else b"0",
+            base_url.encode(),
             _islands_export.__version__.encode(),
         ]
     )
@@ -134,12 +186,20 @@ def _build_bundle(src_path: str, mode: str) -> dict[str, Any] | None:
     if cache_file.exists():
         return json.loads(cache_file.read_text(encoding="utf-8"))
 
+    # The kernel roots its on-disk caches (`__marimo__/`, which backs both
+    # `mo.persistent_cache` and `cache_cells`) next to the notebook path it is
+    # given.
+    nb_path = _notebook_path(src_path)
+    nb_path.parent.mkdir(parents=True, exist_ok=True)
+
     try:
         bundle = convert_md_to_islands(
             source.decode("utf-8"),
             execute=execute,
             display_code=display_code,
             reactive=reactive,
+            source_path=str(nb_path),
+            base_url=base_url,
         )
     except Exception:
         log.warning("marimo islands build failed for %s", src_path, exc_info=True)
@@ -150,7 +210,7 @@ def _build_bundle(src_path: str, mode: str) -> dict[str, Any] | None:
     return bundle
 
 
-def on_page_markdown(markdown: str, *, page: Any, **_: Any) -> str:
+def on_page_markdown(markdown: str, *, page: Any, config: Any, **_: Any) -> str:
     if "marimo" not in markdown or page.file.abs_src_path is None:
         return markdown
 
@@ -168,7 +228,9 @@ def on_page_markdown(markdown: str, *, page: Any, **_: Any) -> str:
         )
         mode = _DEFAULT_MODE
 
-    bundle = _build_bundle(page.file.abs_src_path, mode)
+    bundle = _build_bundle(
+        page.file.abs_src_path, mode, _page_base_url(config, page)
+    )
     if bundle is None:
         return markdown  # leave the page untouched; failure already logged
 
@@ -186,6 +248,8 @@ def on_page_markdown(markdown: str, *, page: Any, **_: Any) -> str:
         return markdown
 
     _bundles[page.file.src_uri] = bundle
+    if _MODE_KWARGS[mode][0]:  # cells ran, so there may be a cache to ship
+        _cached_pages[page.url] = str(_notebook_path(page.file.abs_src_path))
     return new_markdown
 
 
@@ -203,4 +267,16 @@ def on_page_content(html: str, *, page: Any, **_: Any) -> str:
     # Inject the islands runtime (scripts/styles) once per page. mkdocs has no
     # per-page <head> hook, so prepend it to the content; browsers honor
     # <script>/<link> in the body and the islands runtime bootstraps from there.
-    return _clean_head(bundle["head"]) + "\n" + spliced
+    # The first-class island-JSON payload (empty for a static, no-kernel page)
+    # goes *after* the spliced islands so every <marimo-island> cellId it
+    # references is already in the DOM when the runtime hydrates from it.
+    payload_script = bundle.get("payload_script", "")
+    return _clean_head(bundle["head"]) + "\n" + spliced + "\n" + payload_script
+
+
+def on_post_build(config: Any, **_: Any) -> None:
+    """Ship each page's cell cache next to the page, after mkdocs writes it."""
+    site_dir = Path(config["site_dir"])
+    for url, nb_path in _cached_pages.items():
+        _bundle_cache(Path(nb_path), site_dir / url.strip("/"))
+    _cached_pages.clear()

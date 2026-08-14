@@ -14,8 +14,11 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            # Python toolchain
-            python311
+            # Python toolchain. Must track `.python-version` / pyproject's
+            # `requires-python` (3.14) — a shell python older than the venv's
+            # silently splits the environment: `uv run` gets 3.14, a bare
+            # `python` gets something else.
+            python314
             uv
 
             # Node.js toolchain

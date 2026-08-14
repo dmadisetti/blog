@@ -84,15 +84,30 @@ if [ "$DRY" = "1" ]; then
   exit 0
 fi
 
-# 3) Materialize: set date to today, strip queue-only frontmatter lines
+# 3) Materialize: set date to today, strip queue-only frontmatter lines.
+#    The queue entry is NOT removed yet — see step 4. Removing it before the
+#    commit succeeded is what stranded the 2026-07-07/07-14 posts: the file was
+#    de-queued and materialized, then `git commit` died and took the whole run
+#    with it, leaving a half-published post and a consumed queue slot.
 sed -E "s/^date:.*/date: ${today}/; /^# QUEUE/d; /^# DRAFT/d" "$next" > "$dest"
-rm -f "$next"
-log "published ${slug%.md} -> ${dest#$BLOG/}"
 
-# 4) Commit + push
+# 4) Commit, then de-queue. Transactional: the queue entry only disappears once
+#    the post is committed, and a failed commit rolls the materialized file back
+#    so the next run retries cleanly.
+#    Don't require GPG signing: this is an unattended systemd job whose PATH has
+#    no gpg (that was the actual failure — `cannot run gpg: No such file or
+#    directory` -> commit exit 128), and headless agent/pinentry signing is
+#    fragile regardless. The safety-net bot commit does not need a signature.
 git add "$dest"
 if git diff --cached --quiet; then log "nothing staged (?) — done."; exit 0; fi
-git commit -q -m "blog: publish ${slug%.md} (weekly safety-net)"
+if ! git -c commit.gpgsign=false commit -q -m "blog: publish ${slug%.md} (weekly safety-net)"; then
+  git rm -q --cached "$dest" >/dev/null 2>&1 || true   # unstage
+  rm -f "$dest"                                         # and un-materialize
+  log "commit failed — rolled back; queue entry '$(basename "$next")' kept for retry."
+  exit 1
+fi
+rm -f "$next"   # committed — now safe to drop the queue entry
+log "published ${slug%.md} -> ${dest#$BLOG/}"
 if git remote get-url origin >/dev/null 2>&1; then
   if git push -q 2>/tmp/blog-push.err; then
     log "pushed to origin — GitHub Pages will rebuild."

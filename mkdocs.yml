@@ -75,8 +75,9 @@ plugins:
       comments_path: "#__comments"
 
 # marimo cells are rendered as reactive islands by a local hook
-# (hooks/marimo_islands.py) backed by `marimo export islands-json`, replacing
-# the mkdocs-marimo plugin.
+# (hooks/marimo_islands.py) that drives marimo's first-class island-JSON
+# hydration API (>=0.23.14): executed outputs ship inline (cache), a JSON
+# payload takes them live in the browser (wasm). Replaces the mkdocs-marimo plugin.
 hooks:
   - hooks/marimo_islands.py
   # Ships docs/.well-known/ (atproto-did for the Bluesky handle, etc.) into the

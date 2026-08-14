@@ -8,7 +8,7 @@ dependencies = [
     "altair>=5.4.0",
     "cairosvg>=2.8.2",
     "duckdb>=1.4.3",
-    "marimo>=0.23.9",
+    "marimo>=0.23.16",
     "matplotlib>=3.10.8",
     "mkdocs>=1.6.1",
     "mkdocs-blog-plugin>=0.25",
@@ -20,6 +20,12 @@ dependencies = [
     "pymdown-extensions>=10.19.1",
     "python-markdown-math>=0.9",
 ]
+
+# Islands are exported by re-running each post's notebook at build time. Cell
+# caching lets an unchanged cell restore its output instead of re-executing,
+# which is what keeps a full-site build from re-running every post's kernel.
+[tool.marimo.runtime]
+cache_cells = true
 
 # Publish-time only (the syndication poster, bin/syndicate.py). Kept out of the
 # default deps so the site build / CI stays lean: `uv sync --group publish`.
