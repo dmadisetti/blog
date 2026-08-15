@@ -58,6 +58,7 @@ DOCTOROW_URLS = [
     "https://pluralistic.net/2026/04/24/poop-emoji-plus-plus/",
 ]
 
+@mo.persistent_cache(method="lazy")
 def _get(url):
     # Prefer the system trust store when it exists: certifi alone fails behind a
     # TLS-intercepting proxy, which is how this machine is set up. Built per call
@@ -72,17 +73,8 @@ def _get(url):
     with urllib.request.urlopen(req, timeout=30, context=tls) as r:
         return r.read().decode("utf-8", "replace")
 
-
-# The browser cannot reach Gutenberg (cross-origin, no CORS header) and does not
-# need to — the table below comes from cache. Skipping beats raising: an
-# exception here marks every downstream cell "ancestor raised", which takes the
-# madlibs down with it.
-if sys.platform == "emscripten":
-    austen_src, doctorow_src = "", {}
-else:
-    with mo.persistent_cache("watermarked_sources"):
-        austen_src = _get(AUSTEN_URL)
-        doctorow_src = {_u: _get(_u) for _u in DOCTOROW_URLS}
+austen_src = _get(AUSTEN_URL)
+doctorow_src = {_u: _get(_u) for _u in DOCTOROW_URLS}
 ```
 
 ```python {.marimo}
@@ -125,6 +117,7 @@ def _strip_gutenberg(text):
     return re.sub(r"(?m)^\s*(CHAPTER\b.*|\[Illustration.*)$", " ", text)
 
 
+@mo.persistent_cache(method="lazy")
 def profile(text):
     """Token counts plus how often each word shows up capitalised.
 
@@ -145,11 +138,8 @@ def profile(text):
     }
 
 
-if sys.platform == "emscripten":
-    austen = doctorow = None  # never read: leaderboard() is a cache hit there
-else:
-    austen = profile(_strip_gutenberg(austen_src))
-    doctorow = profile("\n\n".join(_pluralistic_body(h) for h in doctorow_src.values()))
+austen = profile(_strip_gutenberg(austen_src))
+doctorow = profile("\n\n".join(_pluralistic_body(h) for h in doctorow_src.values()))
 ```
 
 ```python {.marimo}
