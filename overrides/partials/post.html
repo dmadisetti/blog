@@ -1,81 +1,51 @@
 {#-
-  Override of Material's blog post excerpt: when a post sets a `description` in
-  its front matter, use that as the index/archive summary (one source of truth,
-  shared with the og:description + RSS). Otherwise fall back to Material's
-  default `<!-- more -->` excerpt. Everything else mirrors the stock template.
+  Override of Material's blog post excerpt: the index and archive are a compact
+  listing — one row per post (date · title · tags), like a buffer listing —
+  rather than a stack of full excerpts.
+
+  The summary is still in the DOM (search, RSS readers, no-JS, screen readers);
+  it just unfolds under the row on hover, or when the vim cursor lands on it
+  (the vim navigator treats each `.md-post--excerpt` as one block, so `j`/`k`
+  walks the list and the summary opens under the cursor). On coarse-pointer
+  devices — no hover, no vim — the summary is always shown; see site.css.
+
+  Summary source: a post's front-matter `description` when it has one (one
+  source of truth, shared with og:description + RSS), else Material's
+  `<!-- more -->` excerpt.
 -#}
-<article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    {% if post.authors %}
-      <nav class="md-post__authors md-typeset">
-        {% for author in post.authors %}
-          <span class="md-author">
-            <img src="{{ author.avatar | url }}" alt="{{ author.name }}">
-          </span>
-        {% endfor %}
-      </nav>
-    {% endif %}
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="{{ post.config.date.created }}">
-            {{- post.config.date.created | date -}}
-          </time>
-          {#- Collapse whitespace -#}
-        </li>
-        {% if post.categories %}
-          <li class="md-meta__item">
-            {{ lang.t("blog.categories.in") }}
-            {% for category in post.categories %}
-              <a href="{{ category.url | url }}" class="md-meta__link">
-                {{- category.title -}}
-              </a>
-              {%- if loop.revindex > 1 %}, {% endif -%}
-            {% endfor -%}
-          </li>
-        {% endif %}
-        {% if post.config.readtime %}
-          {% set time = post.config.readtime %}
-          <li class="md-meta__item">
-            {% if time == 1 %}
-              {{ lang.t("readtime.one") }}
-            {% else %}
-              {{ lang.t("readtime.other") | replace("#", time) }}
-            {% endif %}
-          </li>
-        {% endif %}
-        {% if post.config.pin %}
-          <span class="md-pin"></span>
-        {% endif %}
-      </ul>
-      {% if post.config.draft %}
-        <span class="md-draft">
-          {{ lang.t("blog.draft") }}
-        </span>
-      {% endif %}
+{%- set title = post.post.title if post.post else post.title -%}
+{%- set tags = post.meta.tags if post.meta and post.meta.tags else [] -%}
+{#- A row's summary is one line of plain text. Front-matter `description` when
+    the post has one; otherwise flatten Material's `<!-- more -->` excerpt —
+    which leads with the post's own title as an <h2>, so drop that first. -#}
+{%- set summary = post.meta.description
+    or (post.content | striptags | replace(title, "", 1) | trim | truncate(220)) -%}
+<article class="md-post md-post--excerpt md-post--row">
+  <a class="md-post__row" href="{{ post.url | url }}">
+    <span class="md-post__gutter">
+      <time class="md-post__date" datetime="{{ post.config.date.created }}">
+        {{- post.config.date.created.strftime("%Y-%m-%d") -}}
+      </time>
+      {%- if post.config.readtime %}
+      <span class="md-post__time">({{ post.config.readtime }} min)</span>
+      {%- endif %}
+    </span>
+    <span class="md-post__name">
+      {{- title -}}
+      {%- if post.config.pin %}<span class="md-post__pin" title="pinned">*</span>{% endif -%}
+      {%- if post.config.draft %}<span class="md-post__draft">{{ lang.t("blog.draft") }}</span>{% endif -%}
+    </span>
+    {%- if tags %}
+    <span class="md-post__tags">
+      {%- for tag in tags[:3] -%}
+        {{ tag }}{% if not loop.last %} · {% endif %}
+      {%- endfor -%}
+    </span>
+    {%- endif %}
+  </a>
+  <div class="md-post__summary md-typeset">
+    <div class="md-post__summary-inner">
+      <p>{{ summary }}</p>
     </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    {% if post.meta.description %}
-      <h2><a class="toclink" href="{{ post.url | url }}">{{ post.post.title }}</a></h2>
-      <p>{{ post.meta.description }}</p>
-      <nav class="md-post__action">
-        <a href="{{ post.url | url }}">
-          {{ lang.t("blog.continue") }}
-        </a>
-      </nav>
-    {% else %}
-      {{ post.content }}
-      {% if post.more %}
-        <nav class="md-post__action">
-          <a href="{{ post.url | url }}">
-            {{ lang.t("blog.continue") }}
-          </a>
-        </nav>
-      {% endif %}
-    {% endif %}
-    {% if post.config.pin %}
-      <hr>
-    {% endif %}
   </div>
 </article>

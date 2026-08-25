@@ -134,14 +134,6 @@
   margin-top: 2.5rem;
 }
 
-/* --- Blog index: breathing room between the prelude and the post list ----- */
-.md-post--excerpt {
-  margin-bottom: 2.5rem;
-}
-.md-post--excerpt:first-of-type {
-  margin-top: 3.5rem;
-}
-
 /* --- Image blocks: <figure markdown="span"> … <figcaption> --------------- */
 /* A full body-width contrast band frames the (often small) image: the tinted
    bars either side of the centered image take up the body width, so a 300px
@@ -178,4 +170,282 @@
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
+}
+
+/* --- Footer statusline (vim/lualine) ------------------------------------- */
+/* Fixed to the viewport bottom, like the real thing: the position readout on
+   the right is live (javascripts/statusline.js), so it has to stay in view
+   while you read. Markup: overrides/partials/footer.html. */
+.vim-status {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  background: var(--vim-status-bg);
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color--light);
+  font-family: "Fira Code", ui-monospace, monospace;
+  font-size: 0.56rem;
+  line-height: 1.4rem;
+}
+.vim-status__inner {
+  display: flex;
+  align-items: center;
+  padding: 0 0.4rem;
+}
+.vim-status__seg {
+  padding: 0 0.5rem;
+  white-space: nowrap;
+}
+.vim-status a.vim-status__seg {
+  color: inherit;
+  text-decoration: none;
+}
+.vim-status a.vim-status__seg:hover {
+  color: var(--md-accent-fg-color);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+/* The buffer name is the one segment allowed to shrink. */
+.vim-status__file {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vim-status__gap {
+  flex: 1 1 auto;
+  min-width: 0.5rem;
+}
+/* Commit + feed are the tinted end caps (lualine's section a / z). */
+.vim-status a.vim-status__git,
+.vim-status a.vim-status__rss {
+  background: color-mix(in srgb, var(--md-accent-fg-color) 14%, transparent);
+  color: var(--md-typeset-a-color);
+}
+/* `[+]`: dirty tree, or a queued draft that isn't committed at all. */
+.vim-status__flag {
+  color: var(--md-code-hl-number-color);
+  padding-right: 0.3rem;
+}
+.vim-status__pos {
+  font-variant-numeric: tabular-nums;
+  color: var(--md-default-fg-color);
+}
+/* Clear the fixed bar so the last line of a post isn't hidden behind it. */
+.md-main {
+  padding-bottom: 1.6rem;
+}
+@media screen and (max-width: 59.9375em) {
+  .vim-status__lic,
+  .vim-status__enc,
+  .vim-status__words {
+    display: none;
+  }
+}
+@media screen and (max-width: 44.9375em) {
+  .vim-status__ft {
+    display: none;
+  }
+}
+
+/* --- Blog index: one compact row per post -------------------------------- */
+/* Markup: overrides/partials/post.html. The summary is folded away and unfolds
+   on hover, or when the vim cursor lands on the row — `j`/`k` walks the list
+   and the description opens under the cursor. */
+.md-post--row {
+  /* Width of the date itself: `2026-08-14` is 10 chars of Fira Code at
+     0.66rem (0.6em advance) ≈ 4rem, plus the gap to the text block. */
+  --post-date: 4rem;
+  --post-gap: 0.7rem;
+  /* How far left of the text block the tinted cursorline has to reach to cover
+     the date. Zero while the date sits in-flow; set where it hangs (below). */
+  --post-bleed: 0rem;
+  margin: 0;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-post--row:first-of-type {
+  margin-top: 2rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-post__row {
+  display: grid;
+  grid-template-columns: calc(var(--post-date) + var(--post-gap)) 1fr max-content;
+  align-items: baseline;
+  padding: 0.5rem 0 0.5rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+/* Date over read time, right-aligned against the text block. The wrapper is
+   the grid item, so its first line (the date) keeps the title's baseline. */
+.md-post__gutter {
+  text-align: right;
+  padding-right: var(--post-gap);
+  white-space: nowrap;
+}
+.md-post__date,
+.md-post__time {
+  display: block;
+  font-family: "Fira Code", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-default-fg-color--lighter);
+}
+.md-post__date {
+  font-size: 0.66rem;
+}
+.md-post__time {
+  font-size: 0.56rem;
+  opacity: 0.75;
+}
+.md-post__name {
+  font-family: "Fira Sans", var(--md-text-font), sans-serif;
+  font-weight: 500;
+  font-size: 0.84rem;
+  letter-spacing: -0.01em;
+}
+.md-post__row:hover .md-post__name {
+  color: var(--md-accent-fg-color);
+}
+.md-post__tags {
+  font-family: "Fira Code", ui-monospace, monospace;
+  font-size: 0.6rem;
+  color: var(--md-default-fg-color--lighter);
+}
+.md-post__pin,
+.md-post__draft {
+  color: var(--md-code-hl-number-color);
+  padding-left: 0.4rem;
+  font-size: 0.66rem;
+}
+.md-post__summary {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.18s ease, opacity 0.18s ease;
+}
+.md-post__summary-inner {
+  overflow: hidden;
+}
+.md-post__summary-inner > :first-child {
+  margin-top: 0;
+}
+.md-post__summary .md-post__summary-inner {
+  /* Starts under the title, i.e. clear of the date column. */
+  padding-left: calc(var(--post-date) + var(--post-gap));
+  /* Pin the body font: the generic .vim-cursor-active rule sends its block
+     mono, which would reflow the summary between the hover and cursor states. */
+  font-family: var(--md-text-font-family, "Fira Sans"), sans-serif;
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+}
+.md-post--row:hover .md-post__summary,
+.md-post--row.vim-cursor-active .md-post__summary {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+/* The generic .vim-cursor-active treatment indents its block by 1rem and adds a
+   3px rule — on a listing row that drags the hanging date along with it every
+   time the cursor lands. Rows take the tint only, which is what vim's
+   `cursorline` is anyway: nothing moves. */
+.md-post--row.vim-cursor-active {
+  border-left: none;
+  /* The tint covers the whole row box — the hanging date included, and a hair
+     past the text on both sides. Negative margin against equal padding, so the
+     band grows outward while nothing inside it moves. */
+  margin-left: calc(-1 * (var(--post-bleed) + 0.4rem));
+  margin-right: -0.4rem;
+  padding-left: calc(var(--post-bleed) + 0.4rem);
+  padding-right: 0.4rem;
+}
+
+/* --- Landing: a narrower measure than the 61rem grid ---------------------- */
+/* A list of titles doesn't want the full body width; the dates hang in the
+   space this frees up (see the margin-dates block below). */
+.md-content__inner:has(.landing-sub) {
+  /* Material's own side gutter, kept as padding: `margin: auto` centres the
+     block but drops Material's .8rem side margin, which left the text flush
+     with the screen edge on phones. Border-box, so the measure stays 44rem. */
+  --landing-pad: 0.8rem;
+  --landing-hang: calc(var(--post-date, 4rem) + var(--post-gap, 0.7rem) + 0.3rem);
+  max-width: calc(44rem + 2 * var(--landing-pad));
+  padding-left: var(--landing-pad);
+  padding-right: var(--landing-pad);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Dates in the margin — the landing only. The whole content block gets a real
+   left margin to hang them in, and the date column collapses to zero width with
+   the date pushed out of it. The date is the only thing out there: title,
+   summary, H1 and byline all line up on the inner edge of that margin, because
+   nothing reserves space for the date any more.
+
+   Scoped by `:has(.landing-sub)` — the vim hint paragraph exists only on
+   docs/index.md. (Not by the hidden nav sidebar: Material hides that on every
+   page here, so it would have applied site-wide.) Archive pages list posts too
+   and keep the in-flow column above. */
+@media screen and (min-width: 60em) {
+  .md-content__inner:has(.landing-sub) {
+    max-width: calc(44rem + var(--landing-hang) + var(--landing-pad));
+    padding-left: var(--landing-hang);
+  }
+  /* The date is out in the margin now, so the cursorline has to reach it. */
+  .md-content__inner:has(.landing-sub) .md-post--row {
+    --post-bleed: calc(var(--post-date) + var(--post-gap));
+  }
+  .md-content__inner:has(.landing-sub) .md-post__row {
+    grid-template-columns: 0 1fr max-content;
+  }
+  /* Zero-width track + end-alignment: the date's right edge lands on the track
+     edge and the text overflows left, into the margin. Still a grid item, so it
+     keeps its baseline with the title. */
+  .md-content__inner:has(.landing-sub) .md-post__gutter {
+    justify-self: end;
+    padding-right: 0;
+    margin-right: var(--post-gap);
+  }
+  .md-content__inner:has(.landing-sub) .md-post__summary-inner {
+    padding-left: 0;
+  }
+}
+/* Touch: no hover and no vim, so the summaries just stay open. */
+@media (hover: none) {
+  .md-post__summary {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+/* Phones: stack, and drop the tags. */
+@media screen and (max-width: 44.9375em) {
+  .md-post__row {
+    grid-template-columns: 1fr;
+  }
+  .md-post__gutter {
+    text-align: left;
+    padding-right: 0;
+  }
+  .md-post__date,
+  .md-post__time {
+    display: inline;
+  }
+  .md-post__summary .md-post__summary-inner {
+    padding-left: 0;
+  }
+  .md-post__tags {
+    display: none;
+  }
+}
+
+/* --- Landing: the vim hint only surfaces once vim is in use --------------- */
+/* statusline.js sets `body.vim-active` on the first cursor move. */
+.landing-sub {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+body.vim-active .landing-sub {
+  max-height: 4rem;
+  opacity: 1;
 }

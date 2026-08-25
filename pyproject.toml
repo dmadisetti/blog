@@ -19,6 +19,13 @@ dependencies = [
     "pillow>=12.0.0",
     "pymdown-extensions>=10.19.1",
     "python-markdown-math>=0.9",
+    # Both are marimo cache dependencies, and both fail *quietly*: without
+    # pyarrow a cached Arrow IPC blob cannot be read back ("pyarrow is required
+    # to load cached Arrow IPC blobs"), so the entry is a permanent miss;
+    # without cryptography the lazy loader drops from mode='verify' to 'off' and
+    # cache entries are neither signed nor verified.
+    "pyarrow>=18.0.0",
+    "cryptography>=44.0.0",
 ]
 
 # Islands are exported by re-running each post's notebook at build time. Cell
@@ -26,6 +33,13 @@ dependencies = [
 # which is what keeps a full-site build from re-running every post's kernel.
 [tool.marimo.runtime]
 cache_cells = true
+# The browser half of a hybrid island never sees this config, so it hashes with
+# `mo.persistent_cache`'s own default of pin_modules=False. Exporting turns
+# cache_cells on unconditionally, and that lifecycle defaults pin_modules=True,
+# so every module ref (`mo`, `re`, ...) hashes differently on the two sides and
+# any execution-path key downstream of an import misses in the browser. Pinning
+# it False here is what makes the two agree.
+pin_modules = false
 
 # Publish-time only (the syndication poster, bin/syndicate.py). Kept out of the
 # default deps so the site build / CI stays lean: `uv sync --group publish`.

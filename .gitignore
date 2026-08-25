@@ -66,3 +66,13 @@ notebooks/__marimo__/
 
 # osmnx Overpass HTTP cache — re-derivable
 notebooks/cache/
+
+# Blogroll. The working files (snapshot.json, the raw page cache) are
+# rebuildable by pressing harvest; what gets committed is the frozen dump:
+# the gzipped snapshot and favicons plus a manifest of sha256s. The tarball of
+# every page fetched that day is 386 MB and stays local — the manifest carries
+# its checksum, so a future copy can still be verified against this harvest.
+!notebooks/data/blogroll/
+notebooks/data/blogroll/*
+!notebooks/data/blogroll/dumps/
+notebooks/data/blogroll/dumps/*/pages.tar.gz

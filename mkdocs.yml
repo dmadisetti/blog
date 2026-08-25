@@ -55,7 +55,7 @@ plugins:
       post_date_format: medium
       post_url_format: "{slug}"
       authors: false
-      pagination_per_page: 10
+      pagination_per_page: 25   # compact rows (overrides/partials/post.html)
       archive: true
       archive_name: archive
       archive_date_format: yyyy
@@ -79,6 +79,10 @@ plugins:
 # hydration API (>=0.23.14): executed outputs ship inline (cache), a JSON
 # payload takes them live in the browser (wasm). Replaces the mkdocs-marimo plugin.
 hooks:
+  # Build facts for the footer statusline: deployed commit + per-page buffer
+  # stats (lines, words, filetype). First, so word/filetype counts see the
+  # markdown as written.
+  - hooks/statusline.py
   - hooks/marimo_islands.py
   # Ships docs/.well-known/ (atproto-did for the Bluesky handle, etc.) into the
   # built site — mkdocs skips dot-dirs otherwise.
@@ -131,6 +135,7 @@ extra_javascript:
   - javascripts/vim-navigation.js
   - javascripts/marimo-theme.js
   - javascripts/dm-underline.js
+  - javascripts/statusline.js
 
 # Extra CSS
 extra_css:

@@ -1,0 +1,69 @@
+{#-
+  The footer, rendered as a vim statusline (lualine layout).
+
+  Left  — the commit this page was built from, and the buffer: the post's real
+          source path in the repo, linked to the blob at that exact commit
+          ("improve this page"). `[+]` marks a modified buffer: either the tree
+          was dirty at build time, or this is a `queued.*` draft mirrored in by
+          hooks/queue_preview.py and therefore not in the repo at all.
+  Right — license, filetype, encoding, word count, then the live position
+          readout (`15%:16/103 ☰ ℅:1`), which javascripts/statusline.js drives
+          off the vim cursor (falling back to scroll position before the first
+          keypress). `data-vim-lines` is the source file's line count, so the
+          denominator is a true fact about the buffer rather than a guess.
+
+  Static facts come from hooks/statusline.py (config.extra.build, page.meta.stat).
+-#}
+{%- set build = config.extra.build | default({}) -%}
+{%- set stat = (page.meta.stat if page and page.meta else none) | default({}) -%}
+{%- set src = page.file.src_uri if page and page.file else "" -%}
+{%- set name = src.split("/") | last -%}
+{%- set queued = name.startswith("queued.") -%}
+{%- set path = (build.docs_prefix ~ "/" ~ src) if build.docs_prefix else src -%}
+{%- set modified = queued or build.dirty -%}
+{%- set licmap = {
+  "CC-BY-4.0": ["CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/"],
+  "CC-BY-ND-4.0": ["CC BY-ND 4.0", "https://creativecommons.org/licenses/by-nd/4.0/"],
+  "CC-BY-NC-ND-4.0": ["CC BY-NC-ND 4.0", "https://creativecommons.org/licenses/by-nc-nd/4.0/"],
+  "CC-BY-SA-4.0": ["CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0/"]
+} -%}
+{%- set lic = licmap.get(page.meta.license) if page and page.meta and page.meta.license else none -%}
+<footer class="vim-status" data-vim-status>
+  <div class="vim-status__inner">
+
+    {%- if build.sha %}
+    <a class="vim-status__seg vim-status__git"
+       href="{{ config.repo_url }}/commit/{{ build.sha_full }}"
+       title="built from commit {{ build.sha_full }}">{{ build.sha }}</a>
+    {%- endif %}
+
+    {%- if src %}
+    {%- if build.sha and not queued %}
+    <a class="vim-status__seg vim-status__file"
+       href="{{ config.repo_url }}/blob/{{ build.sha_full }}/{{ path }}"
+       title="improve this page">{{ path }}</a>
+    {%- else %}
+    <span class="vim-status__seg vim-status__file">{{ path }}</span>
+    {%- endif %}
+    {%- if modified %}<span class="vim-status__flag" title="{{ 'not committed (queued draft)' if queued else 'built from a dirty working tree' }}">[+]</span>{% endif %}
+    {%- endif %}
+
+    <span class="vim-status__gap"></span>
+
+    {%- if lic %}
+    <a class="vim-status__seg vim-status__lic" href="{{ lic[1] }}" rel="license">{{ lic[0] }}</a>
+    {%- endif %}
+    {%- if stat.filetype %}
+    <span class="vim-status__seg vim-status__ft">{{ stat.filetype }}</span>
+    <span class="vim-status__seg vim-status__enc">utf-8[unix]</span>
+    <span class="vim-status__seg vim-status__words">{{ stat.words_display }} words</span>
+    {%- endif %}
+
+    <span class="vim-status__seg vim-status__pos"
+          data-vim-pos
+          data-vim-lines="{{ stat.lines | default(1) }}">0%:1/{{ stat.lines | default(1) }} ☰ ℅:1</span>
+
+    <a class="vim-status__seg vim-status__rss" href="{{ 'feed_rss_created.xml' | url }}"
+       title="RSS feed">rss</a>
+  </div>
+</footer>

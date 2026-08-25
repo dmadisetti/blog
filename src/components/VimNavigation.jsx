@@ -11,6 +11,8 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
   const blockDataRef = useRef({});
   const prevCursorPos = useRef(null);
   const lastMoveTime = useRef(0);
+  const engaged = useRef(false);
+  const originCursor = useRef(null);
 
   // Calculate wrapped lines and paragraph starts for each block
   useEffect(() => {
@@ -110,6 +112,46 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
       currentBlock.element.classList.add('vim-cursor-active');
     }
   }, [globalCursor.blockId, blocks]);
+
+  // Broadcast the cursor for the footer statusline (javascripts/statusline.js).
+  // We send a *fraction* through the buffer's wrapped lines rather than a line
+  // number: the statusline maps it onto the source file's real line count, so
+  // `15%:16/103` stays a true statement about the file on disk instead of about
+  // however the browser happened to wrap it. `engaged` stays false until the
+  // cursor actually moves, which is what lets the statusline keep following
+  // scroll position (and the landing page keep its subtitle hidden) until the
+  // reader touches a key.
+  useEffect(() => {
+    let total = 0;
+    let before = 0;
+    let index = -1;
+    blocks.forEach((b, i) => {
+      if (b.id === globalCursor.blockId) {
+        before = total;
+        index = i;
+      }
+      const data = blockDataRef.current[b.id];
+      total += data ? data.lines.length : 1;
+    });
+    if (index < 0) return;
+
+    const key = `${globalCursor.blockId}:${globalCursor.line}:${globalCursor.col}`;
+    if (originCursor.current === null) {
+      originCursor.current = key;
+    } else if (key !== originCursor.current) {
+      engaged.current = true;
+    }
+
+    window.dispatchEvent(new CustomEvent('vim:cursor', {
+      detail: {
+        progress: total > 1 ? (before + globalCursor.line) / (total - 1) : 0,
+        col: globalCursor.col + 1,
+        block: index + 1,
+        blocks: blocks.length,
+        engaged: engaged.current,
+      },
+    }));
+  }, [globalCursor, blocks]);
 
   // Jumping to a header (TOC link, permalink, or landing on a #hash) moves the
   // cursor onto that block.
@@ -623,7 +665,7 @@ export default function VimNavigation({ blocks, disableTrail = false }) {
         // On the index a post block opens the post in a NEW TAB; elsewhere,
         // open the block's link (honoring its own target).
         const link = isPost
-          ? el.querySelector('.md-post__action a[href], a[href]')
+          ? el.querySelector('.md-post__row[href], .md-post__action a[href], a[href]')
           : el.querySelector('a[href]');
         if (link) {
           if (isPost || link.target === '_blank') {
