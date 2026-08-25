@@ -101,3 +101,12 @@
   background-color: #2a2a2a;
   color: #d0d0d0;
 }
+
+/* Statusline surface: same ink as the header bar, so the page is bracketed by
+   two matching rules (see the .vim-status rules in site.css). */
+[data-md-color-scheme="default"] {
+  --vim-status-bg: #e4e4e4;
+}
+[data-md-color-scheme="slate"] {
+  --vim-status-bg: #2a2a2a;
+}
