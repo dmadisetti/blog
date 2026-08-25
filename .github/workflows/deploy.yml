@@ -68,9 +68,17 @@ jobs:
           INDEXNOW_KEY: b3115abfdc29443bb937e3f607feef6f
         run: |
           set -euo pipefail
-          # site_url from mkdocs.yml -> sitemap location.
-          export SITE_URL=$(uv run python -c "import yaml;print(yaml.safe_load(open('mkdocs.yml'))['site_url'].rstrip('/'))")
-          export HOST=$(printf '%s' "$SITE_URL" | sed -E 's#^https?://([^/]+).*#\1#')
+          # site_url from mkdocs.yml -> sitemap location. mkdocs.yml carries
+          # `!!python/name:` tags (superfences, emoji) that safe_load refuses to
+          # construct, so register a catch-all multi-constructor dropping every
+          # custom tag — we only want the one scalar. Assign and export as
+          # separate statements: `export VAR=$(...)` reports export's own exit
+          # status, so a parse failure sails past `set -e` and leaves SITE_URL
+          # empty (which is how this silently pinged nothing for a while).
+          SITE_URL=$(uv run python -c "import yaml; yaml.SafeLoader.add_multi_constructor('', lambda *a: None); print(yaml.safe_load(open('mkdocs.yml'))['site_url'].rstrip('/'))")
+          : "${SITE_URL:?site_url missing or empty in mkdocs.yml}"
+          HOST=$(printf '%s' "$SITE_URL" | sed -E 's#^https?://([^/]+).*#\1#')
+          export SITE_URL HOST
           export KEY_LOCATION="$SITE_URL/$INDEXNOW_KEY.txt"
           echo "Submitting for host=$HOST keyLocation=$KEY_LOCATION"
 
@@ -79,6 +87,10 @@ jobs:
             if curl -fsSL "$SITE_URL/sitemap.xml" -o sitemap.xml; then break; fi
             echo "sitemap not ready yet (attempt $i), waiting..."; sleep 15
           done
+          if [ ! -s sitemap.xml ]; then
+            echo "Sitemap never appeared at $SITE_URL/sitemap.xml; nothing submitted."
+            exit 1
+          fi
 
           # Build the IndexNow payload from the sitemap <loc> URLs (cap 10000).
           # Single-line python (stdlib only) keeps it inside the YAML block scalar.
